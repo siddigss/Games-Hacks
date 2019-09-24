@@ -1,3 +1,3 @@
 A simple memory writing hack for MegaMan x4 English version.
 
-# Commands:
+Instructions are showed on the terminal once you open it.
