@@ -1,6 +1,5 @@
 # Addresses
-soon.
-
+Characters structures (classes) : &ast;(base_address + F1D1F0)
 
 From this list above it fairly simple to open all clothes, items and titles.
 
