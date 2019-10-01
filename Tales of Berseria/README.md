@@ -7,7 +7,7 @@ Valuables Ammounts Array        : &ast;(&ast;(base_address + F1D1D8)) + 8000
 
 
 
-
+a
 From this list above it fairly simple to open all clothes, items and titles.
 
 # How to open all weapons ?
