@@ -1,0 +1,5023 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="29">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>15</ID>
+      <Description>"monster locations test"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(newmem6, 2000)
+registerSymbol(newmem6)
+registerSymbol(monster_location_thread_start)
+define(sleep_address, 752885B0)
+
+newmem6:
+monster_array:
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+
+
+monster_location_thread_start:
+push 2000
+call sleep_address
+mov eax, ["Conquer.exe"+8E7D44]
+mov edx, 0
+start_loop:
+mov ebx, [eax+edx]
+cmp ebx, 0
+je stop
+
+mov ecx,[ebx]
+cmp [ecx+1A4], 0
+je next_1
+mov esi, [ecx+4]
+
+//mov [monster_array+4*edx], esi
+mov ebp, edx
+imul ebp, 4
+add ebp, monster_array
+mov [ebp], esi
+
+mov esi, [ecx+8]
+//mov [monster_array+4*edx+4], esi
+mov ebp, edx
+imul ebp, 4
+add ebp, monster_array
+mov [ebp+4], esi
+
+
+next_1:
+
+mov ecx, [ebx+8]
+cmp [ecx+1A4], 0
+je next_2
+
+mov esi, [ecx+4]
+//mov [monster_array+4*edx+8], esi
+mov ebp, edx
+imul ebp, 4
+add ebp, monster_array
+mov [ebp+8], esi
+
+mov esi, [ecx+8]
+//mov [monster_array+4*edx+C], esi
+mov ebp, edx
+imul ebp, 4
+add ebp, monster_array
+mov [ebp+C], esi
+
+
+next_2:
+
+add edx, 4
+jmp start_loop
+
+stop:
+ret
+
+
+
+createThread(monster_location_thread_start)
+
+
+[DISABLE]
+dealloc(newmem6)
+unregisterSymbol(newmem6)
+unregisterSymbol(monster_location_thread_start)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>14</ID>
+      <Description>"signed division test"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+alloc(newmem5, 1000)
+registerSymbol(newmem5)
+define(sleep_address, 752885B0)
+
+newmem5:
+push 500
+call sleep_address
+
+mov eax, -10
+mov edx, -1
+mov ebx, 10
+idiv ebx
+ret
+
+
+createThread(newmem5)
+
+[DISABLE]
+
+dealloc(newmem5)
+unregisterSymbol(newmem5)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>33</ID>
+      <Description>"auto press "no" button test"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+define(no_button_key, 08F5F6F4)
+define(yes_button_key, 08E518BC)
+define(sleep_address, 74BA85B0)
+alloc(newmem11, 1000)
+registerSymbol(newmem11)
+newmem11:
+//push 2000
+//call sleep_address
+
+mov ecx, no_button_key
+push 5
+push C
+push 1
+call "Conquer.exe"+294559
+
+push 7D0
+call sleep_address
+
+mov ecx, no_button_key
+push 9
+push E
+push 0
+call "Conquer.exe"+29450A
+
+//push 3E8
+//push sleep_address
+
+ret
+
+createThread(newmem11)
+
+
+[DISABLE]
+dealloc(newmem11)
+unregisterSymbol(newmem11)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>10</ID>
+      <Description>"Auto Attack by clicking"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+alloc(newmem3, 1000)
+registerSymbol(newmem3)
+
+define(sleep_address, 752885B0)
+define(sleep_interval, 1000)
+
+newmem3:
+//variables
+
+world_monster_coord_1:
+dd 0
+world_monster_coord_2:
+dd 0
+world_player_coord_1:
+dd 0
+world_player_coord_2:
+dd 0
+relative_monster_coord_1:
+dd 0
+relative_monster_coord_2:
+dd 0
+screen_monster_coord_1:
+dd 0
+screen_monster_coord_2:
+dd 0
+
+
+
+thread_start:
+push 500
+call sleep_address
+
+
+thread_loop:
+//push sleep_interval
+//call sleep_address
+
+//Get monster structure
+mov eax, "Conquer.exe"+8E7D44
+mov eax, dword ptr ds:[eax]
+mov eax, dword ptr ds:[eax]
+mov eax, dword ptr ds:[eax]  // eax = monster address
+//Get monster world coordinates
+mov ebx, dword ptr ds:[eax+4]
+mov dword ptr ds:[world_monster_coord_1], ebx
+mov ebx, dword ptr ds:[eax+8]
+mov dword ptr ds:[world_monster_coord_2], ebx
+//Get player structure
+mov eax, dword ptr ds:["Conquer.exe"+8DB4E4]
+//mov eax, dword ptr ds:[eax]  // eax = player address
+//Get player world coordinates
+mov ebx, dword ptr ds:[eax+4]
+mov dword ptr ds:[world_player_coord_1], ebx
+mov ebx, dword ptr ds:[eax+8]
+mov dword ptr ds:[world_player_coord_2], ebx
+//Calculate monster relative coordinates
+mov eax, dword ptr ds:[world_monster_coord_1]
+sub eax, dword ptr ds:[world_player_coord_1]
+mov dword ptr ds:[relative_monster_coord_1], eax
+
+mov eax, dword ptr ds:[world_monster_coord_2]
+sub eax, dword ptr ds:[world_player_coord_2]
+mov dword ptr ds:[relative_monster_coord_2], eax
+
+//Applying rotation
+
+mov eax, dword ptr ds:[relative_monster_coord_1]
+add eax, dword ptr ds:[relative_monster_coord_2]
+imul eax, 7
+mov ebx, A
+mov edx, 0
+cmp eax, 0
+jge edx_equal_zero_1
+mov edx, -1
+edx_equal_zero_1:
+idiv ebx
+add eax, 122
+mov dword ptr ds:[screen_monster_coord_1], eax
+
+mov eax, dword ptr ds:[relative_monster_coord_1]
+sub eax dword ptr ds:[relative_monster_coord_2]
+imul eax, 7
+mov ebx, A
+mov edx, 0
+cmp eax, 0
+jge edx_equal_zero_2
+mov edx, -1
+edx_equal_zero_2:
+idiv ebx
+add eax, 190
+mov dword ptr ds:[screen_monster_coord_2], eax
+
+//push parameters
+push dword ptr ds:[screen_monster_coord_1]
+push dword ptr ds:[screen_monster_coord_2]
+push 00000001               // No Ctrl, Alt or Shift pressed
+//requirements for the call
+mov ecx, dword ptr ds:["Conquer.exe"+8DCA98]
+mov ebx, dword ptr ds:[screen_monster_coord_1]
+mov eax, dword ptr ds:[screen_monster_coord_2]
+call "Conquer.exe"+2EB667
+//add esp, C
+jmp thread_loop
+ret
+
+
+createThread(thread_start)
+
+
+
+
+
+[DISABLE]
+
+dealloc(newmem3)
+unregisterSymbol(newmem3)
+
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>11</ID>
+      <Description>"click function test"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(newmem4, 1000)
+registerSymbol(newmem4)
+
+newmem4:
+mov eax, 100
+mov ebx, 100
+mov ecx, dword ptr ds:["Conquer.exe"+8DCA98]
+//mov edx, 0021C000
+//mov esi 006EB667
+//mov edi, 08C85078
+push 100
+push 100
+push 00000001               // No Ctrl, Alt or Shift pressed
+call "Conquer.exe"+2EB667
+ret
+
+
+createThread(newmem4)
+
+[DISABLE]
+
+dealloc(newmem4)
+unregisterSymbol(newmem4)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"Record damages"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+alloc(newmem,2048)
+label(originalcode)
+registerSymbol(newmem)
+
+// functions address
+define(fopen_address, 0x743D01A2)
+define(fprintf_address, 0x743D0216)
+define(fclose_address, 0x743CFC61)
+
+define(InitialCriticalSection_address, 77E7D280)
+define(EnterCriticalSection_address, 77E5EB60)
+define(LeaveCriticalSection_address, 77E5E870)
+define(DeleteCriticalSection_address, 77E7D6E0)
+
+newmem:
+//Strings
+a_string:
+dw "a+"
+db 0
+
+file_name:
+//db "."
+//db 5C
+dq "damages."
+dd "txt", 0x00
+
+format_string:
+dw "%d"
+db 0A                // "\n"
+db 0
+
+//variables (pointers)
+file_address:
+dd 0
+
+value_to_write:
+dd 0
+
+db 0
+dw 0
+
+critical_section_1:
+dq 0
+dq 0
+dq 0
+dq 0
+dq 0
+
+//Injected Code
+
+start_injected_code:
+pushad
+pushfd
+mov eax, [ecx+1C]
+mov dword ptr ds:[value_to_write], eax
+
+push critical_section_1
+call InitialCriticalSection_address
+
+push critical_section_1
+call EnterCriticalSection_address
+
+code_to_open_file:
+cmp dword ptr ds:[file_address], 0
+jne code_to_write_to_file
+push a_string
+push file_name
+call fopen_address
+cmp eax, 0
+je code_to_open_file
+mov dword ptr ds:[file_address], eax
+add esp, 8
+
+code_to_write_to_file:
+push dword ptr ds:[value_to_write]
+push format_string
+push dword ptr ds:[file_address]
+call fprintf_address
+add esp, C
+//jmp originalcode
+
+code_to_close_file:
+push [file_address]
+call fclose_address
+mov dword ptr ds:[file_address], 0
+add esp, 4
+
+push critical_section_1
+call LeaveCriticalSection_address
+
+originalcode:
+popfd
+popad
+sub eax,[ecx+1C]
+jns "Conquer.exe"+492A4F
+jmp "Conquer.exe"+492A4D
+
+
+"Conquer.exe"+492A48:
+jmp start_injected_code
+
+
+
+
+
+
+
+
+[DISABLE]
+
+dealloc(newmem)
+unregisterSymbol(newmem)
+
+"Conquer.exe"+492A48:
+sub eax,[ecx+1C]
+jns "Conquer.exe"+492A4F
+
+
+
+
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>30</ID>
+      <Description>"random generator test"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABlE]
+
+alloc(newmem10, 1000)
+registerSymbol(newmem10)
+
+define(timeGetTime_address, 75C28830)
+define(RtlRandom_address, 77E74FE0)
+define(sleep_address, 752885B0)
+
+newmem10:
+push 2000
+call sleep_address
+push 10
+call get_random_int_function
+ret
+
+
+
+
+get_random_int_function:
+push ebp
+mov ebp, esp
+call timeGetTime_address
+push eax
+mov eax, esp
+push eax
+call RtlRandom_address
+add esp, 4
+mov edx, 0
+mov ebx, [ebp+8]
+idiv ebx
+mov eax, edx
+mov esp, ebp
+pop ebp
+ret 4
+
+
+
+
+
+createThread(newmem10)
+
+[DISABLE]
+
+dealloc(newmem10)
+unregisterSymbol(newmem10)
+
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>17</ID>
+      <Description>"monster locations test 2"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(newmem7, 2000)
+registerSymbol(newmem7)
+label(monster_location_thread_start_2)
+registerSymbol(monster_location_thread_start_2)
+define(sleep_address, 752885B0)
+
+newmem7:
+monster_array:
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+
+
+monster_location_thread_start_2:
+push 2000
+call sleep_address
+mov eax, ["Conquer.exe"+8E7D44]
+mov edx, 0
+
+start_loop:
+mov ebx, [eax+edx]
+cmp ebx, 0
+je stop
+
+mov ecx,[ebx]
+cmp byte ptr ds:[ecx+1A4], 0
+je next_1
+mov esi, [ecx+4]
+
+//mov [monster_array+4*edx], esi
+mov ebp, edx
+imul ebp, 4
+add ebp, monster_array
+mov [ebp], esi
+
+mov esi, [ecx+8]
+//mov [monster_array+4*edx+4], esi
+mov ebp, edx
+imul ebp, 4
+add ebp, monster_array
+mov [ebp+4], esi
+
+next_1:
+cmp [eax+edx+4], 0
+je next_2
+
+mov ecx, [ebx+8]
+cmp byte ptr ds:[ecx+1A4], 0
+je next_2
+
+mov esi, [ecx+4]
+//mov [monster_array+4*edx+8], esi
+mov ebp, edx
+imul ebp, 4
+add ebp, monster_array
+mov [ebp+8], esi
+
+mov esi, [ecx+8]
+//mov [monster_array+4*edx+C], esi
+mov ebp, edx
+imul ebp, 4
+add ebp, monster_array
+mov [ebp+C], esi
+
+next_2:
+add edx, 4
+jmp start_loop
+
+stop:
+ret
+
+
+
+createThread(monster_location_thread_start_2)
+
+
+[DISABLE]
+dealloc(newmem7)
+unregisterSymbol(newmem7)
+unregisterSymbol(monster_location_thread_start_2)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>21</ID>
+      <Description>"auto attack with skill"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+alloc(newmem8, 1000)
+registerSymbol(newmem8)
+label(thread_start)
+registerSymbol(thread_start)
+label(kill_thread)
+registerSymbol(kill_thread)
+define(sleep_address, 752885B0)
+define(sleep_interval, 200)
+define(freeLibraryAndExitThread_address, 75BE49A0)
+define(InitialCiticalSection_address, 77E7D280)
+define(EnterCriticalSection_address, 77E5EB60)
+define(LeaveCriticalSection_address, 77E5E870)
+define(DeleteCriticalSection_address, 77E7D6E0)
+define(_endThread_address, 743C3251)
+define(_endThreadEx_address, 743C33EF)
+
+newmem8:
+//variables
+
+world_monster_coord_1:
+dd 0
+world_monster_coord_2:
+dd 0
+world_player_coord_1:
+dd 0
+world_player_coord_2:
+dd 0
+relative_monster_coord_1:
+dd 0
+relative_monster_coord_2:
+dd 0
+screen_monster_coord_1:
+dd 0
+screen_monster_coord_2:
+dd 0
+
+monster_array:
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+
+monster_number:
+dd 0
+
+kill_thread:
+dd 0
+
+
+critical_section:
+dq 0
+dq 0
+dq 0
+dq 0
+dq 0
+
+
+thread_start:
+//push 3000
+//call sleep_address
+
+push critical_section
+call InitialCiticalSection_address
+
+thread_loop:
+push sleep_interval
+call sleep_address
+cmp [kill_thread], 0
+je continue_thread
+push 1
+call _endThreadEx_address
+
+
+continue_thread:
+//reset monster_array
+mov [monster_number], 0
+mov eax, 0
+
+reset_moster_array:
+cmp eax, 64
+je fill_monster_array
+mov ebx, eax
+imul ebx, 4
+add ebx, monster_array
+mov [ebx], 80000000
+add, eax, 1
+jmp reset_moster_array
+
+
+push critical_section
+call EnterCriticalSection_address
+
+
+//fill monster_array
+fill_monster_array:
+mov eax, ["Conquer.exe"+8E7D44]
+mov edx, 0
+start_loop:
+mov ebx, [eax+edx]
+cmp ebx, 0
+je stop_filling_monster_array
+
+{$TRY}
+mov ecx,[ebx]
+cmp byte ptr ds:[ecx+1A4], 0
+je next_1
+cmp [ecx+2C4], 1
+je next_1
+mov esi, [ecx+4]
+
+//mov [monster_array+4*edx], esi
+mov ebp, [monster_number]
+imul ebp, 8
+add ebp, monster_array
+mov [ebp], esi
+
+mov esi, [ecx+8]
+//mov [monster_array+4*edx+4], esi
+mov ebp, [monster_number]
+imul ebp, 8
+add ebp, monster_array
+mov [ebp+4], esi
+inc [monster_number]
+{$EXCEPT}
+
+next_1:
+cmp [eax+edx+4], 0
+je next_2
+
+{$TRY}
+mov ecx, [ebx+8]
+cmp byte ptr ds:[ecx+1A4], 0
+je next_2
+cmp [ecx+2C4], 1
+je next_1
+
+mov esi, [ecx+4]
+//mov [monster_array+4*edx+8], esi
+mov ebp, [monster_number]
+imul ebp, 8
+add ebp, monster_array
+mov [ebp], esi
+
+mov esi, [ecx+8]
+//mov [monster_array+4*edx+C], esi
+mov ebp, [monster_number]
+imul ebp, 8
+add ebp, monster_array
+mov [ebp+4], esi
+inc [monster_number]
+{$EXCEPT}
+
+next_2:
+add edx, 4
+jmp start_loop
+
+
+push critical_section
+call LeaveCriticalSection_address
+
+
+stop_filling_monster_array:
+
+
+//Write first monster coordinates
+cmp [monster_array], 80000000
+je thread_loop //je finish
+mov eax, [monster_array]
+mov [world_monster_coord_1] eax
+mov eax, [monster_array+4]
+mov [world_monster_coord_2] eax
+
+
+//Get player structure
+mov eax, dword ptr ds:["Conquer.exe"+8DB4E4]  // eax = player address
+//Get player world coordinates
+mov ebx, dword ptr ds:[eax+4]
+mov dword ptr ds:[world_player_coord_1], ebx
+mov ebx, dword ptr ds:[eax+8]
+mov dword ptr ds:[world_player_coord_2], ebx
+//Calculate monster relative coordinates
+mov eax, dword ptr ds:[world_monster_coord_1]
+sub eax, dword ptr ds:[world_player_coord_1]
+mov dword ptr ds:[relative_monster_coord_1], eax
+
+mov eax, dword ptr ds:[world_monster_coord_2]
+sub eax, dword ptr ds:[world_player_coord_2]
+mov dword ptr ds:[relative_monster_coord_2], eax
+
+//Applying rotation
+
+mov eax, dword ptr ds:[relative_monster_coord_1]
+add eax, dword ptr ds:[relative_monster_coord_2]
+imul eax, 7
+mov ebx, A
+mov edx, 0
+cmp eax, 0
+jge edx_equal_zero_1
+mov edx, -1
+edx_equal_zero_1:
+idiv ebx
+add eax, 122
+mov dword ptr ds:[screen_monster_coord_1], eax
+
+mov eax, dword ptr ds:[relative_monster_coord_1]
+sub eax dword ptr ds:[relative_monster_coord_2]
+imul eax, 7
+mov ebx, A
+mov edx, 0
+cmp eax, 0
+jge edx_equal_zero_2
+mov edx, -1
+edx_equal_zero_2:
+idiv ebx
+add eax, 190
+mov dword ptr ds:[screen_monster_coord_2], eax
+
+//push parameters
+push dword ptr ds:[screen_monster_coord_1]
+push dword ptr ds:[screen_monster_coord_2]
+push 00000001               // No Ctrl, Alt or Shift pressed
+//requirements for the call
+mov ecx, dword ptr ds:["Conquer.exe"+8DCA98]
+mov ebx, dword ptr ds:[screen_monster_coord_1]
+mov eax, dword ptr ds:[screen_monster_coord_2]
+call "Conquer.exe"+2EE82A
+//add esp, C
+jmp thread_loop
+finish:
+ret
+
+
+createThread(thread_start)
+
+
+
+
+
+[DISABLE]
+
+dealloc(newmem8)
+unregisterSymbol(newmem8)
+unregisterSymbol(thread_start)
+unregisterSymbol(kill_thread)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>20</ID>
+      <Description>"Auto Attack by clicking 3"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+alloc(newmem8, 1000)
+registerSymbol(newmem8)
+label(thread_start)
+registerSymbol(thread_start)
+label(kill_thread)
+registerSymbol(kill_thread)
+define(sleep_address, 752885B0)
+define(sleep_interval, 500)
+define(freeLibraryAndExitThread_address, 75BE49A0)
+define(InitialCiticalSection_address, 77E7D280)
+define(EnterCriticalSection_address, 77E5EB60)
+define(LeaveCriticalSection_address, 77E5E870)
+define(DeleteCriticalSection_address, 77E7D6E0)
+define(_endThread_address, 743C3251)
+define(_endThreadEx_address, 743C33EF)
+
+newmem8:
+//variables
+
+world_monster_coord_1:
+dd 0
+world_monster_coord_2:
+dd 0
+world_player_coord_1:
+dd 0
+world_player_coord_2:
+dd 0
+relative_monster_coord_1:
+dd 0
+relative_monster_coord_2:
+dd 0
+screen_monster_coord_1:
+dd 0
+screen_monster_coord_2:
+dd 0
+
+monster_array:
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+
+monster_number:
+dd 0
+
+kill_thread:
+dd 0
+
+
+critical_section:
+dq 0
+dq 0
+dq 0
+dq 0
+dq 0
+
+
+thread_start:
+//push 3000
+//call sleep_address
+
+push critical_section
+call InitialCiticalSection_address
+
+thread_loop:
+push sleep_interval
+call sleep_address
+cmp [kill_thread], 0
+je continue_thread
+push 1
+call _endThreadEx_address
+
+
+continue_thread:
+//reset monster_array
+mov [monster_number], 0
+mov eax, 0
+cmp eax, 64
+je fill_monster_array
+mov ebx, eax
+imul ebx, 4
+add ebx, monster_array
+mov [ebx], 80000000
+add, eax, 1
+
+push critical_section
+call EnterCriticalSection_address
+
+
+//fill monster_array
+fill_monster_array:
+mov eax, ["Conquer.exe"+8E7D44]
+mov edx, 0
+start_loop:
+mov ebx, [eax+edx]
+cmp ebx, 0
+je stop_filling_monster_array
+
+{$TRY}
+mov ecx,[ebx]
+cmp byte ptr ds:[ecx+1A4], 0
+je next_1
+cmp [ecx+2C4], 1
+je next_1
+mov esi, [ecx+4]
+
+//mov [monster_array+4*edx], esi
+mov ebp, [monster_number]
+imul ebp, 8
+add ebp, monster_array
+mov [ebp], esi
+
+mov esi, [ecx+8]
+//mov [monster_array+4*edx+4], esi
+mov ebp, [monster_number]
+imul ebp, 8
+add ebp, monster_array
+mov [ebp+4], esi
+inc [monster_number]
+{$EXCEPT}
+
+next_1:
+cmp [eax+edx+4], 0
+je next_2
+
+{$TRY}
+mov ecx, [ebx+8]
+cmp byte ptr ds:[ecx+1A4], 0
+je next_2
+cmp [ecx+2C4], 1
+je next_1
+
+mov esi, [ecx+4]
+//mov [monster_array+4*edx+8], esi
+mov ebp, [monster_number]
+imul ebp, 8
+add ebp, monster_array
+mov [ebp], esi
+
+mov esi, [ecx+8]
+//mov [monster_array+4*edx+C], esi
+mov ebp, [monster_number]
+imul ebp, 8
+add ebp, monster_array
+mov [ebp+4], esi
+inc [monster_number]
+{$EXCEPT}
+
+next_2:
+add edx, 4
+jmp start_loop
+
+
+push critical_section
+call LeaveCriticalSection_address
+
+
+stop_filling_monster_array:
+
+
+//Write first monster coordinates
+cmp [monster_array], 80000000
+je thread_loop //je finish
+mov eax, [monster_array]
+mov [world_monster_coord_1] eax
+mov eax, [monster_array+4]
+mov [world_monster_coord_2] eax
+
+
+//Get player structure
+mov eax, dword ptr ds:["Conquer.exe"+8DB4E4]  // eax = player address
+//Get player world coordinates
+mov ebx, dword ptr ds:[eax+4]
+mov dword ptr ds:[world_player_coord_1], ebx
+mov ebx, dword ptr ds:[eax+8]
+mov dword ptr ds:[world_player_coord_2], ebx
+//Calculate monster relative coordinates
+mov eax, dword ptr ds:[world_monster_coord_1]
+sub eax, dword ptr ds:[world_player_coord_1]
+mov dword ptr ds:[relative_monster_coord_1], eax
+
+mov eax, dword ptr ds:[world_monster_coord_2]
+sub eax, dword ptr ds:[world_player_coord_2]
+mov dword ptr ds:[relative_monster_coord_2], eax
+
+//Applying rotation
+
+mov eax, dword ptr ds:[relative_monster_coord_1]
+add eax, dword ptr ds:[relative_monster_coord_2]
+imul eax, 7
+mov ebx, A
+mov edx, 0
+cmp eax, 0
+jge edx_equal_zero_1
+mov edx, -1
+edx_equal_zero_1:
+idiv ebx
+add eax, 122
+mov dword ptr ds:[screen_monster_coord_1], eax
+
+mov eax, dword ptr ds:[relative_monster_coord_1]
+sub eax dword ptr ds:[relative_monster_coord_2]
+imul eax, 7
+mov ebx, A
+mov edx, 0
+cmp eax, 0
+jge edx_equal_zero_2
+mov edx, -1
+edx_equal_zero_2:
+idiv ebx
+add eax, 190
+mov dword ptr ds:[screen_monster_coord_2], eax
+
+//push parameters
+push dword ptr ds:[screen_monster_coord_1]
+push dword ptr ds:[screen_monster_coord_2]
+push 00000001               // No Ctrl, Alt or Shift pressed
+//requirements for the call
+mov ecx, dword ptr ds:["Conquer.exe"+8DCA98]
+mov ebx, dword ptr ds:[screen_monster_coord_1]
+mov eax, dword ptr ds:[screen_monster_coord_2]
+call "Conquer.exe"+2EB667
+//add esp, C
+jmp thread_loop
+finish:
+ret
+
+
+createThread(thread_start)
+
+
+
+
+
+[DISABLE]
+
+dealloc(newmem8)
+unregisterSymbol(newmem8)
+unregisterSymbol(thread_start)
+unregisterSymbol(kill_thread)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>23</ID>
+      <Description>"auto attack with skill 2"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+alloc(newmem8, 1000)
+registerSymbol(newmem8)
+label(thread_start)
+registerSymbol(thread_start)
+label(kill_thread)
+registerSymbol(kill_thread)
+define(sleep_address, 752885B0)
+define(sleep_interval, 2BC)
+define(sleep_interval_after_move, 100)
+define(sleep_interval_before_move, 1F4)
+define(freeLibraryAndExitThread_address, 75BE49A0)
+define(InitialCiticalSection_address, 77E7D280)
+define(EnterCriticalSection_address, 77E5EB60)
+define(LeaveCriticalSection_address, 77E5E870)
+define(DeleteCriticalSection_address, 77E7D6E0)
+define(_endThread_address, 743C3251)
+define(_endThreadEx_address, 743C33EF)
+
+define(max_number_of_monsters, 30)
+label(counter)
+registerSymbol(counter)
+newmem8:
+//variables
+
+world_monster_coord_1:
+dd 0
+world_monster_coord_2:
+dd 0
+world_player_coord_1:
+dd 0
+world_player_coord_2:
+dd 0
+relative_monster_coord_1:
+dd 0
+relative_monster_coord_2:
+dd 0
+screen_monster_coord_1:
+dd 0
+screen_monster_coord_2:
+dd 0
+
+monster_array:
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+
+monster_number:
+dd 0
+
+kill_thread:
+dd 0
+
+mean_world_monster_coords:
+dd 80000000
+dd 80000000
+
+weighted_world_monster_coords:
+dd 80000000
+dd 80000000
+
+accepted_range_A_coord_1:
+dd 80000000
+accepted_range_A_coord_2:
+dd 80000000
+accepted_range_B_coord_1:
+dd 80000000
+accepted_range_B_coord_2:
+dd 80000000
+
+critical_section:
+dq 0
+dq 0
+dq 0
+dq 0
+dq 0
+
+counter:
+dd 0
+
+thread_start:
+//push 3000
+//call sleep_address
+
+push critical_section
+call InitialCiticalSection_address
+
+thread_loop:
+inc [counter]
+push sleep_interval
+call sleep_address
+cmp [kill_thread], 1
+jne continue_thread
+//push 1
+//call _endThreadEx_address
+mov [kill_thread], C8
+ret
+
+continue_thread:
+//reset monster_array
+mov [monster_number], 0
+mov [weighted_world_monster_coords], 80000000
+mov ecx, weighted_world_monster_coords
+add ecx, 4
+mov [ecx], 80000000
+
+mov [mean_world_monster_coords], 80000000
+mov ecx, mean_world_monster_coords
+add ecx, 4
+mov [ecx], 80000000
+
+
+mov eax, 0
+
+reset_moster_array:
+cmp eax, 64
+je fill_monster_array
+mov ebx, eax
+imul ebx, 4
+add ebx, monster_array
+mov [ebx], 80000000
+add, eax, 1
+jmp reset_moster_array
+
+
+fill_monster_array:
+
+push critical_section
+call EnterCriticalSection_address
+
+
+
+
+//Get player structure
+mov eax, dword ptr ds:["Conquer.exe"+8DB4E4]  // eax = player address
+//Get player world coordinates
+mov ebx, dword ptr ds:[eax+4]
+mov dword ptr ds:[world_player_coord_1], ebx
+add ebx, 7D0
+mov dword ptr ds:[accepted_range_A_coord_1], ebx
+sub ebx, 7D0
+sub ebx, 7D0
+mov dword ptr ds:[accepted_range_B_coord_1], ebx
+mov ebx, dword ptr ds:[eax+8]
+mov dword ptr ds:[world_player_coord_2], ebx
+add ebx, 7D0
+mov dword ptr ds:[accepted_range_A_coord_2], ebx
+sub ebx, 7D0
+sub ebx, 7D0
+mov dword ptr ds:[accepted_range_B_coord_2], ebx
+
+
+
+//fill monster_array
+
+mov eax, ["Conquer.exe"+8E7D44]
+mov edx, 0
+start_loop:
+cmp [monster_number], max_number_of_monsters
+jae stop_filling_monster_array
+mov ebx, [eax+edx]
+cmp ebx, 0
+je stop_filling_monster_array
+
+{$TRY}
+mov ecx,[ebx]
+cmp byte ptr ds:[ecx+1A4], 0
+je next_1
+cmp [ecx+2C4], 1
+je next_1
+
+mov esi, [ecx+8]
+cmp esi, dword ptr ds:[accepted_range_A_coord_2]
+jge next_1
+cmp esi, dword ptr ds:[accepted_range_B_coord_2]
+jle next_1
+mov esi, [ecx+4]
+cmp esi, dword ptr ds:[accepted_range_A_coord_1]
+jge next_1
+cmp esi, dword ptr ds:[accepted_range_B_coord_1]
+jle next_1
+//mov [monster_array+4*edx], esi
+mov ebp, [monster_number]
+imul ebp, 8
+add ebp, monster_array
+mov [ebp], esi
+
+mov esi, [ecx+8]
+//mov [monster_array+4*edx+4], esi
+mov ebp, [monster_number]
+imul ebp, 8
+add ebp, monster_array
+mov [ebp+4], esi
+inc [monster_number]
+{$EXCEPT}
+
+next_1:
+cmp [eax+edx+4], 0
+je next_2
+
+{$TRY}
+mov ecx, [ebx+8]
+cmp byte ptr ds:[ecx+1A4], 0
+je next_2
+cmp [ecx+2C4], 1
+je next_1
+
+mov esi, [ecx+8]
+cmp esi, dword ptr ds:[accepted_range_A_coord_1]
+jge next_2
+cmp esi, dword ptr ds:[accepted_range_B_coord_1]
+jle next_2
+
+mov esi, [ecx+4]
+cmp esi, dword ptr ds:[accepted_range_A_coord_1]
+jge next_2
+cmp esi, dword ptr ds:[accepted_range_B_coord_1]
+jle next_2
+//mov [monster_array+4*edx+8], esi
+mov ebp, [monster_number]
+imul ebp, 8
+add ebp, monster_array
+mov [ebp], esi
+
+mov esi, [ecx+8]
+//mov [monster_array+4*edx+C], esi
+mov ebp, [monster_number]
+imul ebp, 8
+add ebp, monster_array
+mov [ebp+4], esi
+inc [monster_number]
+{$EXCEPT}
+
+next_2:
+add edx, 4
+jmp start_loop
+
+stop_filling_monster_array:
+
+push critical_section
+call LeaveCriticalSection_address
+
+
+
+//nothing if no monster coordinates
+cmp [monster_array], 80000000
+je thread_loop //je finish
+
+
+
+//Mean of world_monster_coords
+mov eax, 0
+mov ebx, 0
+mov edx, 0
+start_mean_world_monster_coords:
+cmp edx, dword ptr ds:[monster_number]
+jae finish_mean_world_monster_coords
+mov ecx, edx
+imul ecx, 8
+add ecx, monster_array
+add eax, [ecx]
+add ecx, 4
+add ebx, [ecx]
+inc edx
+jmp start_mean_world_monster_coords
+
+finish_mean_world_monster_coords:
+
+mov edx,0
+mov ecx, [monster_number]
+idiv ecx
+mov [mean_world_monster_coords], eax
+
+mov edx,0
+mov eax, ebx
+idiv ecx
+mov ecx, mean_world_monster_coords
+add ecx, 4
+mov [ecx], eax
+
+
+
+//mov eax, [monster_array]
+//cmp [closest_monster_coords], eax
+
+
+//mov [world_monster_coord_1] eax
+//mov eax, [monster_array+4]
+//mov [world_monster_coord_2] eax
+
+
+
+//weighted coords
+mov eax, [mean_world_monster_coords]
+mov ebx, [world_player_coord_1]
+imul eax, 1
+imul ebx, 1
+add eax, ebx
+mov edx, 0
+mov ebx, 2
+idiv ebx
+mov [weighted_world_monster_coords], eax
+
+mov ecx, mean_world_monster_coords
+add ecx, 4
+mov eax, [ecx]
+mov ebx, [world_player_coord_2]
+imul eax, 1
+imul ebx, 1
+add eax, ebx
+mov edx, 0
+mov ebx, 2
+idiv ebx
+mov ecx, weighted_world_monster_coords
+add ecx, 4
+mov [ecx], eax
+
+
+//Calculate monster relative coordinates
+mov eax, dword ptr ds:[weighted_world_monster_coords]
+sub eax, dword ptr ds:[world_player_coord_1]
+mov dword ptr ds:[relative_monster_coord_1], eax
+
+mov ecx, weighted_world_monster_coords
+add ecx, 4
+mov eax, dword ptr ds:[ecx]
+sub eax, dword ptr ds:[world_player_coord_2]
+mov dword ptr ds:[relative_monster_coord_2], eax
+
+//Applying rotation
+
+mov eax, dword ptr ds:[relative_monster_coord_1]
+add eax, dword ptr ds:[relative_monster_coord_2]
+imul eax, 7
+mov ebx, A
+mov edx, 0
+cmp eax, 0
+jge edx_equal_zero_1
+mov edx, -1
+edx_equal_zero_1:
+idiv ebx
+add eax, 122
+mov dword ptr ds:[screen_monster_coord_1], eax
+
+mov eax, dword ptr ds:[relative_monster_coord_1]
+sub eax dword ptr ds:[relative_monster_coord_2]
+imul eax, 7
+mov ebx, A
+mov edx, 0
+cmp eax, 0
+jge edx_equal_zero_2
+mov edx, -1
+edx_equal_zero_2:
+idiv ebx
+add eax, 190
+mov dword ptr ds:[screen_monster_coord_2], eax
+
+//push parameters
+push dword ptr ds:[screen_monster_coord_1]
+push dword ptr ds:[screen_monster_coord_2]
+push 00000002               // No Ctrl or Shift pressed
+//requirements for the call
+mov ecx, dword ptr ds:["Conquer.exe"+8DCA98]
+mov ebx, dword ptr ds:[screen_monster_coord_1]
+mov eax, dword ptr ds:[screen_monster_coord_2]
+call "Conquer.exe"+2EE82A
+
+push sleep_interval_before_move
+call sleep_address
+
+//push parameters
+//push dword ptr ds:[screen_monster_coord_1]
+//push dword ptr ds:[screen_monster_coord_2]
+//push 00000001               // No Ctrl or Shift pressed
+//push 00000009             // Ctrl pressed
+//push 00000005             // Shift pressed
+//push 0000000D             // Ctrl and Shift pressed
+//requirements for the call
+//mov ecx, dword ptr ds:["Conquer.exe"+8DCA98]
+//mov ebx, dword ptr ds:[screen_monster_coord_1]
+//mov eax, dword ptr ds:[screen_monster_coord_2]
+//call "Conquer.exe"+2EB667
+
+
+mov ecx, ["Conquer.exe"+8DB4EC]
+
+
+mov eax, [relative_monster_coord_2]
+mov edx, 0
+cmp eax, 0
+jge @f
+mov edx, -1
+@@:
+imul eax, 2
+mov ebx, 64
+idiv ebx
+
+cmp eax, 0
+jl set_written_on_screen_coords_offset_to_negative_thresholds_2:
+//cmp eax, 2
+//jge @f
+//mov eax, 2
+//@@:
+cmp eax, 8
+jle @f
+mov eax, 8
+@@:
+jmp done_written_on_screen_coords_offset_to_negative_thresholds_2
+
+set_written_on_screen_coords_offset_to_negative_thresholds_2:
+cmp eax, -8
+jge @f
+mov eax, -8
+@@:
+//cmp eax, -2
+//jle @f
+//mov eax, -2
+//@@:
+
+done_written_on_screen_coords_offset_to_negative_thresholds_2:
+
+add eax, [ecx+4C8]
+push eax
+
+mov eax, [relative_monster_coord_1]
+mov edx, 0
+cmp eax, 0
+jge @f
+mov edx, -1
+@@:
+imul eax, 2
+mov ebx, 64
+idiv ebx
+
+cmp eax, 0
+jl set_written_on_screen_coords_offset_to_negative_thresholds_1:
+//cmp eax, 2
+//jge @f
+//mov eax, 2
+//@@:
+cmp eax, 8
+jle @f
+mov eax, 8
+@@:
+jmp done_written_on_screen_coords_offset_to_negative_thresholds_1
+
+set_written_on_screen_coords_offset_to_negative_thresholds_1:
+cmp eax, -8
+jge @f
+mov eax, -8
+@@:
+//cmp eax, -2
+//jle @f
+//mov eax, -2
+//@@:
+
+done_written_on_screen_coords_offset_to_negative_thresholds_1:
+
+
+add eax, [ecx+4C4]
+push eax
+
+mov ecx, ["Conquer.exe"+8DB4E4]
+call "Conquer.exe"+369F07
+
+
+//push sleep_interval_after_move
+//call sleep_address
+
+
+//add esp, C
+jmp thread_loop
+finish:
+ret
+
+
+createThread(thread_start)
+
+
+
+
+
+[DISABLE]
+
+dealloc(newmem8)
+unregisterSymbol(newmem8)
+unregisterSymbol(thread_start)
+unregisterSymbol(kill_thread)
+unregisterSymbol(counter)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>18</ID>
+      <Description>"Auto Attack by clicking 2"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+alloc(newmem8, 1000)
+registerSymbol(newmem8)
+label(thread_start)
+registerSymbol(thread_start)
+label(kill_thread)
+registerSymbol(kill_thread)
+define(sleep_address, 752885B0)
+define(sleep_interval, 500)
+define(freeLibraryAndExitThread_address, 75BE49A0)
+
+
+newmem8:
+//variables
+
+world_monster_coord_1:
+dd 0
+world_monster_coord_2:
+dd 0
+world_player_coord_1:
+dd 0
+world_player_coord_2:
+dd 0
+relative_monster_coord_1:
+dd 0
+relative_monster_coord_2:
+dd 0
+screen_monster_coord_1:
+dd 0
+screen_monster_coord_2:
+dd 0
+
+monster_array:
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+
+monster_number:
+dd 0
+
+kill_thread:
+dd 0
+
+thread_start:
+//push 3000
+//call sleep_address
+
+
+thread_loop:
+push sleep_interval
+call sleep_address
+cmp [kill_thread], 0
+je continue_thread
+push 1
+call freeLibraryAndExitThread_address
+
+continue_thread:
+//reset monster_array
+mov [monster_number], 0
+mov eax, 0
+cmp eax, 64
+je fill_monster_array
+mov ebx, eax
+imul ebx, 4
+add ebx, monster_array
+mov [ebx], 80000000
+add, eax, 1
+
+
+//fill monster_array
+fill_monster_array:
+mov eax, ["Conquer.exe"+8E7D44]
+mov edx, 0
+start_loop:
+mov ebx, [eax+edx]
+cmp ebx, 0
+je stop_filling_monster_array
+
+mov ecx,[ebx]
+cmp byte ptr ds:[ecx+1A4], 0
+je next_1
+cmp [ecx+2C4], 1
+je next_1
+mov esi, [ecx+4]
+
+//mov [monster_array+4*edx], esi
+mov ebp, [monster_number]
+imul ebp, 8
+add ebp, monster_array
+mov [ebp], esi
+
+mov esi, [ecx+8]
+//mov [monster_array+4*edx+4], esi
+mov ebp, [monster_number]
+imul ebp, 8
+add ebp, monster_array
+mov [ebp+4], esi
+inc [monster_number]
+
+
+next_1:
+cmp [eax+edx+4], 0
+je next_2
+
+mov ecx, [ebx+8]
+cmp byte ptr ds:[ecx+1A4], 0
+je next_2
+cmp [ecx+2C4], 1
+je next_1
+
+mov esi, [ecx+4]
+//mov [monster_array+4*edx+8], esi
+mov ebp, [monster_number]
+imul ebp, 8
+add ebp, monster_array
+mov [ebp], esi
+
+mov esi, [ecx+8]
+//mov [monster_array+4*edx+C], esi
+mov ebp, [monster_number]
+imul ebp, 8
+add ebp, monster_array
+mov [ebp+4], esi
+inc [monster_number]
+
+
+next_2:
+add edx, 4
+jmp start_loop
+
+stop_filling_monster_array:
+
+
+//Write first monster coordinates
+cmp [monster_array], 80000000
+je thread_loop //je finish
+mov eax, [monster_array]
+mov [world_monster_coord_1] eax
+mov eax, [monster_array+4]
+mov [world_monster_coord_2] eax
+
+
+//Get player structure
+mov eax, dword ptr ds:["Conquer.exe"+8DB4E4]  // eax = player address
+//Get player world coordinates
+mov ebx, dword ptr ds:[eax+4]
+mov dword ptr ds:[world_player_coord_1], ebx
+mov ebx, dword ptr ds:[eax+8]
+mov dword ptr ds:[world_player_coord_2], ebx
+//Calculate monster relative coordinates
+mov eax, dword ptr ds:[world_monster_coord_1]
+sub eax, dword ptr ds:[world_player_coord_1]
+mov dword ptr ds:[relative_monster_coord_1], eax
+
+mov eax, dword ptr ds:[world_monster_coord_2]
+sub eax, dword ptr ds:[world_player_coord_2]
+mov dword ptr ds:[relative_monster_coord_2], eax
+
+//Applying rotation
+
+mov eax, dword ptr ds:[relative_monster_coord_1]
+add eax, dword ptr ds:[relative_monster_coord_2]
+imul eax, 7
+mov ebx, A
+mov edx, 0
+cmp eax, 0
+jge edx_equal_zero_1
+mov edx, -1
+edx_equal_zero_1:
+idiv ebx
+add eax, 122
+mov dword ptr ds:[screen_monster_coord_1], eax
+
+mov eax, dword ptr ds:[relative_monster_coord_1]
+sub eax dword ptr ds:[relative_monster_coord_2]
+imul eax, 7
+mov ebx, A
+mov edx, 0
+cmp eax, 0
+jge edx_equal_zero_2
+mov edx, -1
+edx_equal_zero_2:
+idiv ebx
+add eax, 190
+mov dword ptr ds:[screen_monster_coord_2], eax
+
+//push parameters
+push dword ptr ds:[screen_monster_coord_1]
+push dword ptr ds:[screen_monster_coord_2]
+push 00000001               // No Ctrl, Alt or Shift pressed
+//requirements for the call
+mov ecx, dword ptr ds:["Conquer.exe"+8DCA98]
+mov ebx, dword ptr ds:[screen_monster_coord_1]
+mov eax, dword ptr ds:[screen_monster_coord_2]
+call "Conquer.exe"+2EB667
+//add esp, C
+jmp thread_loop
+finish:
+ret
+
+
+createThread(thread_start)
+
+
+
+
+
+[DISABLE]
+
+dealloc(newmem8)
+unregisterSymbol(newmem8)
+unregisterSymbol(thread_start)
+unregisterSymbol(kill_thread)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"Auto attack"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+alloc(newmem2, 1000)
+registerSymbol(newmem2)
+
+define(sleep_address, 752885B0)
+define(sleep_interval, 1000)
+
+newmem2:
+push 3000
+call sleep_address
+push 00000000
+push 00000000
+push 00000000
+push 00000000
+push 00000000
+push 00000000
+push 00000000
+push 00000000
+push 00000000
+push 00000000
+push 00000000
+push 00000000
+push 00000000
+push 00000000
+push 00000000
+
+thread_loop:
+push sleep_interval
+call sleep_address
+push 00000001
+push 00000000
+mov eax, "Conquer.exe"+8E7D44
+mov eax, dword ptr ds:[eax]
+mov eax, dword ptr ds:[eax]
+push dword ptr ds:[eax+4]
+push dword ptr ds:[eax]
+
+//mov byte ptr ss:[ebp-0x4], 0x9
+//call "Conquer.exe"+102C9B         //Get Key.
+mov byte ptr ss:[ebp-0x4], 0x3
+
+mov ecx, dword ptr ds:["Conquer.exe"+8DB4E4]
+call "Conquer.exe"+374A35
+jmp thread_loop
+ret
+
+
+createThread(newmem2)
+
+
+
+
+
+[DISABLE]
+
+dealloc(newmem2)
+unregisterSymbol(newmem2)
+
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>34</ID>
+      <Description>"callwindowprocA test"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(newmem12, 1000)
+
+newmem12:
+push C0013
+push 0
+push 202
+push 19F0F2C
+push 77E9E690
+call 76328D00
+
+ret
+
+createThread(newmem12)
+
+[DISABLE]
+dealloc(newmem12)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>46</ID>
+      <Description>"jump function test"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(newmem13, 200)
+define(sleep_address, 74BA85B0)
+label(kill_continuous_jump_thread)
+registerSymbol(kill_continuous_jump_thread)
+
+
+newmem13:
+
+kill_continuous_jump_thread:
+dd 0
+
+continuous_jump_thread_start:
+cmp [kill_continuous_jump_thread], 1
+jne @f
+mov [kill_continuous_jump_thread], C8
+ret
+
+@@:
+push 10
+call sleep_address
+
+mov ecx, ["Conquer.exe"+8DB4EC]
+mov eax, [ecx+4C8]
+add eax, -A
+push eax
+
+mov ecx, ["Conquer.exe"+8DB4EC]
+mov eax, [ecx+4C4]
+add eax, 0
+push eax
+
+mov ecx, ["Conquer.exe"+8DB4E4]
+call "Conquer.exe"+369F07
+
+push 10
+call sleep_address
+
+mov ecx, ["Conquer.exe"+8DB4EC]
+mov eax, [ecx+4C8]
+add eax, -A
+push eax
+
+mov ecx, ["Conquer.exe"+8DB4EC]
+mov eax, [ecx+4C4]
+add eax, 0
+push eax
+
+mov ecx, ["Conquer.exe"+8DB4E4]
+call "Conquer.exe"+369F07
+
+
+loop_2:
+
+cmp [kill_continuous_jump_thread], 1
+jne @f
+mov [kill_continuous_jump_thread], C8
+ret
+
+@@:
+push 10
+call sleep_address
+
+mov ecx, ["Conquer.exe"+8DB4EC]
+mov eax, [ecx+4C8]
+add eax, A
+push eax
+
+mov ecx, ["Conquer.exe"+8DB4EC]
+mov eax, [ecx+4C4]
+add eax, 0
+push eax
+
+mov ecx, ["Conquer.exe"+8DB4E4]
+call "Conquer.exe"+369F07
+
+
+
+
+
+
+//jmp continuous_jump_thread_start
+jmp loop_2
+
+createThread(continuous_jump_thread_start)
+
+[DISABLE]
+dealloc(newmem13)
+unregisterSymbol(kill_continuous_jump_thread)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>29</ID>
+      <Description>"auto attack wingedSnake with skill"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+alloc(newmem8, 5000)
+registerSymbol(newmem8)
+label(thread_start)
+registerSymbol(thread_start)
+label(kill_thread)
+registerSymbol(kill_thread)
+define(sleep_address, 74BA85B0)
+define(sleep_interval, 12C)
+define(sleep_interval_after_move, 12C)
+define(sleep_interval_before_move, 1F4)
+//define(freeLibraryAndExitThread_address, 75BE49A0)
+define(InitialCiticalSection_address, 77ADD280)
+define(EnterCriticalSection_address, 77ABEB60)
+define(LeaveCriticalSection_address, 77ABE870)
+//define(DeleteCriticalSection_address, 77E7D6E0)
+//define(_endThread_address, 743C3251)
+//define(_endThreadEx_address, 743C33EF)
+define(timeGetTime_address, 74A18830)
+define(RtlRandom_address, 77AD4FE0)
+define(max_number_of_monsters, 30)
+label(counter)
+registerSymbol(counter)
+label(get_random_int_function)
+registerSymbol(get_random_int_function)
+label(move_to_a_given_point)
+registerSymbol(move_to_a_given_point)
+newmem8:
+//variables
+
+world_monster_coord_1:
+dd 0
+world_monster_coord_2:
+dd 0
+world_player_coord_1:
+dd 0
+world_player_coord_2:
+dd 0
+relative_monster_coord_1:
+dd 0
+relative_monster_coord_2:
+dd 0
+screen_monster_coord_1:
+dd 0
+screen_monster_coord_2:
+dd 0
+relative_city_local_monster_coord_1:
+dd 0
+relative_city_local_monster_coord_2:
+dd 0
+
+monster_array:
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+
+monster_number:
+dd 0
+
+kill_thread:
+dd 0
+
+mean_world_monster_coords:
+dd 80000000
+dd 80000000
+
+weighted_world_monster_coords:
+dd 80000000
+dd 80000000
+
+accepted_range_A_coord_1:
+dd 80000000
+accepted_range_A_coord_2:
+dd 80000000
+accepted_range_B_coord_1:
+dd 80000000
+accepted_range_B_coord_2:
+dd 80000000
+
+critical_section:
+dq 0
+dq 0
+dq 0
+dq 0
+dq 0
+
+counter:
+dd 0
+
+last_counter:
+dd 0
+
+given_points:
+dd 1BC       //444
+dd 71        //113
+dd 14E       //334
+dd 63        //99
+dd 177       //375
+dd 51        //81
+
+alternative_destination_point:
+dd 177       //375
+dd 51        //81
+
+current_destination_point_index:
+dd 2
+
+last_coords:
+dd 0
+dd 0
+dd 0
+dd 0
+dd 0
+dd 0
+dd 0
+dd 0
+dd 0
+dd 0
+dd 0
+dd 0
+
+last_coords_index:
+dd 0
+
+counter_to_restart_monster_chase:
+dd 0
+
+coord_to_jump_1:
+dd 0
+coord_to_jump_2:
+dd 0
+
+message_1:
+dq "happened"
+dd 0
+
+player_last_city_local_coord_1:
+dd 0
+player_last_city_local_coord_2:
+dd 0
+
+change_local_city_coord_reset_counter:
+dd 0
+
+
+monster_mean_world_coords_q1_1:
+dd 0
+monster_mean_world_coords_q1_2:
+dd 0
+monster_mean_world_coords_q2_1:
+dd 0
+monster_mean_world_coords_q2_2:
+dd 0
+monster_mean_world_coords_q3_1:
+dd 0
+monster_mean_world_coords_q3_2:
+dd 0
+monster_mean_world_coords_q4_1:
+dd 0
+monster_mean_world_coords_q4_2:
+dd 0
+
+number_q1:
+dd 0
+number_q2:
+dd 0
+number_q3:
+dd 0
+number_q4:
+dd 0
+
+thread_start:
+//push 3000
+//call sleep_address
+
+push critical_section
+call InitialCiticalSection_address
+
+thread_loop:
+inc [counter]
+push sleep_interval
+call sleep_address
+cmp [kill_thread], 1
+jne continue_thread
+mov [kill_thread], C8
+ret
+
+continue_thread:
+//reset monster_array and other variables.
+
+
+mov [monster_mean_world_coords_q1_1],0
+mov [monster_mean_world_coords_q1_2],0
+
+mov [monster_mean_world_coords_q2_1],0
+mov [monster_mean_world_coords_q2_2],0
+
+mov [monster_mean_world_coords_q3_1],0
+mov [monster_mean_world_coords_q3_2],0
+
+mov [monster_mean_world_coords_q4_1],0
+mov [monster_mean_world_coords_q4_2],0
+
+
+
+mov eax, [counter]
+sub eax, [change_local_city_coord_reset_counter]
+cmp eax, 4
+jle @f
+mov [changeCityLocalCoord], 1
+@@:
+
+mov [monster_number], 0
+mov [weighted_world_monster_coords], 80000000
+mov ecx, weighted_world_monster_coords
+add ecx, 4
+mov [ecx], 80000000
+
+mov [mean_world_monster_coords], 80000000
+mov ecx, mean_world_monster_coords
+add ecx, 4
+mov [ecx], 80000000
+
+
+mov eax, 0
+
+reset_moster_array:
+cmp eax, 64
+je fill_monster_array
+mov ebx, eax
+imul ebx, 4
+add ebx, monster_array
+mov [ebx], 80000000
+add, eax, 1
+jmp reset_moster_array
+
+
+fill_monster_array:
+
+push critical_section
+call EnterCriticalSection_address
+
+//Get player structure
+mov eax, dword ptr ds:["Conquer.exe"+8DB4E4]  // eax = player address
+//Get player world coordinates
+mov ebx, dword ptr ds:[eax+4]
+mov dword ptr ds:[world_player_coord_1], ebx
+add ebx, 3E8
+mov dword ptr ds:[accepted_range_A_coord_1], ebx
+sub ebx, 3E8
+sub ebx, 3E8
+mov dword ptr ds:[accepted_range_B_coord_1], ebx
+mov ebx, dword ptr ds:[eax+8]
+mov dword ptr ds:[world_player_coord_2], ebx
+add ebx, 3E8
+mov dword ptr ds:[accepted_range_A_coord_2], ebx
+sub ebx, 3E8
+sub ebx, 3E8
+mov dword ptr ds:[accepted_range_B_coord_2], ebx
+
+//update last coords array.
+mov eax, [last_coords_index]
+mov edx, 0
+mov ebx, 6
+idiv ebx
+imul edx, 8
+add edx, last_coords
+mov eax, [world_player_coord_1]
+mov [edx], eax
+mov eax, [world_player_coord_2]
+mov [edx+4], eax
+
+//check std.
+mov eax, 0
+mov ebp, 0
+mov ecx, 0
+check_std_sum_loop:
+mov edx, last_coords
+mov ebx, ecx
+imul ebx, 8
+add edx, ebx
+add eax, [edx]
+add ebp, [edx+4]
+inc ecx
+cmp ecx, 6
+je @f
+jmp check_std_sum_loop
+@@:
+mov edx, 0
+cmp eax, 0
+jge @f
+mov edx, -1
+@@:
+idiv ecx
+push eax
+
+mov eax, ebp
+mov edx, 0
+cmp eax, 0
+jge @f
+mov edx, -1
+@@:
+idiv ecx
+push eax
+// [esp+4] = mean of the last 6 coordinates first component
+// [esp] = mean of the last 6 coordinates second component
+
+mov eax, 0
+mov ecx, 0
+
+check_std_std_loop:
+mov edx, last_coords
+mov ebx, ecx
+imul ebx, 8
+add edx, ebx
+mov ebx, [edx]
+sub ebx, [esp+4]
+add eax, ebx
+cmp ebx, 0
+jge @f
+sub eax, ebx
+sub eax, ebx
+@@:
+mov ebx, [edx+4]
+sub ebx, [esp]
+add eax, ebx
+cmp ebx, 0
+jge @f
+sub eax, ebx
+sub eax, ebx
+@@:
+inc ecx
+cmp ecx, 6
+je @f
+jmp check_std_std_loop
+@@:
+mov edx, 0
+idiv ecx
+// eax = 2*std
+cmp eax, 1388
+jle move_to_a_given_point
+jle move_to_a_given_point_with_counter_inc
+cmp [counter_to_restart_monster_chase], 0
+jne move_to_a_given_point_with_counter_inc
+
+add esp, 8
+
+
+//fill monster_array
+
+mov eax, ["Conquer.exe"+8E7D44]
+mov edx, 0
+start_loop:
+cmp [monster_number], max_number_of_monsters
+jae stop_filling_monster_array
+mov ebx, [eax+edx]
+cmp ebx, 0
+je stop_filling_monster_array
+
+{$TRY}
+mov ecx,[ebx]
+cmp byte ptr ds:[ecx+1A4], 'W'
+jne next_1
+cmp byte ptr ds:[ecx+1A5], 'i'
+jne next_1
+cmp byte ptr ds:[ecx+1A6], 'n'
+jne next_1
+cmp byte ptr ds:[ecx+1A7], 'g'
+jne next_1
+cmp byte ptr ds:[ecx+1A8], 'e'
+jne next_1
+cmp byte ptr ds:[ecx+1A9], 'd'
+jne next_1
+cmp byte ptr ds:[ecx+1AA], 'S'
+jne next_1
+cmp byte ptr ds:[ecx+1AB], 'n'
+jne next_1
+cmp byte ptr ds:[ecx+1AC], 'a'
+jne next_1
+cmp byte ptr ds:[ecx+1AD], 'k'
+jne next_1
+cmp byte ptr ds:[ecx+1AE], 'e'
+jne next_1
+cmp [ecx+2C4], 1
+je next_1
+mov esi, [ecx+C64]
+mov esi, [esi+0C]
+mov esi, [esi]
+cmp esi, 0
+jle next_1
+
+mov esi, [ecx+8]
+cmp esi, dword ptr ds:[accepted_range_A_coord_2]
+jge next_1
+cmp esi, dword ptr ds:[accepted_range_B_coord_2]
+jle next_1
+mov esi, [ecx+4]
+cmp esi, dword ptr ds:[accepted_range_A_coord_1]
+jge next_1
+cmp esi, dword ptr ds:[accepted_range_B_coord_1]
+jle next_1
+//mov [monster_array+4*edx], esi
+mov ebp, [monster_number]
+imul ebp, 8
+add ebp, monster_array
+mov [ebp], esi
+
+mov esi, [ecx+8]
+//mov [monster_array+4*edx+4], esi
+mov ebp, [monster_number]
+imul ebp, 8
+add ebp, monster_array
+mov [ebp+4], esi
+inc [monster_number]
+{$EXCEPT}
+
+next_1:
+cmp [eax+edx+4], 0
+je next_2
+
+{$TRY}
+mov ecx, [ebx+8]
+cmp byte ptr ds:[ecx+1A4], 'W'
+jne next_2
+cmp byte ptr ds:[ecx+1A5], 'i'
+jne next_2
+cmp byte ptr ds:[ecx+1A6], 'n'
+jne next_2
+cmp byte ptr ds:[ecx+1A7], 'g'
+jne next_2
+cmp byte ptr ds:[ecx+1A8], 'e'
+jne next_2
+cmp byte ptr ds:[ecx+1A9], 'd'
+jne next_2
+cmp byte ptr ds:[ecx+1AA], 'S'
+jne next_2
+cmp byte ptr ds:[ecx+1AB], 'n'
+jne next_2
+cmp byte ptr ds:[ecx+1AC], 'a'
+jne next_2
+cmp byte ptr ds:[ecx+1AD], 'k'
+jne next_2
+cmp byte ptr ds:[ecx+1AE], 'e'
+jne next_2
+cmp [ecx+2C4], 1
+je next_2
+mov esi, [ecx+C64]
+mov esi, [esi+0C]
+mov esi, [esi]
+cmp esi, 0
+jle next_2
+
+mov esi, [ecx+8]
+cmp esi, dword ptr ds:[accepted_range_A_coord_1]
+jge next_2
+cmp esi, dword ptr ds:[accepted_range_B_coord_1]
+jle next_2
+
+mov esi, [ecx+4]
+cmp esi, dword ptr ds:[accepted_range_A_coord_1]
+jge next_2
+cmp esi, dword ptr ds:[accepted_range_B_coord_1]
+jle next_2
+//mov [monster_array+4*edx+8], esi
+mov ebp, [monster_number]
+imul ebp, 8
+add ebp, monster_array
+mov [ebp], esi
+
+mov esi, [ecx+8]
+//mov [monster_array+4*edx+C], esi
+mov ebp, [monster_number]
+imul ebp, 8
+add ebp, monster_array
+mov [ebp+4], esi
+inc [monster_number]
+{$EXCEPT}
+
+next_2:
+add edx, 4
+jmp start_loop
+
+stop_filling_monster_array:
+
+push critical_section
+call LeaveCriticalSection_address
+
+//nothing if no monster coordinates
+cmp [monster_array], 80000000
+je move_to_a_given_point //je finish
+//je thread_loop
+
+
+
+//////////////////////////////////////////////////
+//Quarters means
+mov edx, 0
+start_q_mean_world_monster_coords:
+cmp edx, dword ptr ds:[monster_number]
+jae finish_q_mean_world_monster_coords
+mov ecx, edx
+imul ecx, 8
+add ecx, monster_array
+push [ecx]            //first component
+add ecx, 4
+push [ecx]            //second component
+
+cmp [esp+4], 0
+jl negative_first_component_q_sum
+cmp [esp],0
+jl @f
+mov eax, [esp+4]
+add [monster_mean_world_coords_q1_1], eax
+mov eax, [esp]
+add [monster_mean_world_coords_q1_2], eax
+inc [number_q1]
+jmp done_adding_to_q_sum
+@@:
+mov eax, [esp+4]
+add [monster_mean_world_coords_q2_1], eax
+mov eax, [esp]
+add [monster_mean_world_coords_q2_2], eax
+inc [number_q2]
+jmp done_adding_to_q_sum
+
+
+negative_first_component_q_sum:
+cmp [esp],0
+jl @f
+mov eax, [esp+4]
+add [monster_mean_world_coords_q3_1], eax
+mov eax, [esp]
+add [monster_mean_world_coords_q3_2], eax
+inc [number_q3]
+jmp done_adding_to_q_sum
+@@:
+mov eax, [esp+4]
+add [monster_mean_world_coords_q4_1], eax
+mov eax, [esp]
+add [monster_mean_world_coords_q4_2], eax
+inc [number_q4]
+jmp done_adding_to_q_sum
+
+
+done_adding_to_q_sum:
+add esp, 8
+inc edx
+jmp start_q_mean_world_monster_coords
+
+finish_q_mean_world_monster_coords:
+
+//q1
+cmp [number_q1], 0
+je divide_q2
+mov eax, [monster_mean_world_coords_q1_1]
+mov ebx, [number_q1]
+mov edx,0
+cmp eax, 0
+jl @f
+mov edx, -1
+@@:
+idiv ebx
+mov [monster_mean_world_coords_q1_1], eax
+
+mov eax, [monster_mean_world_coords_q1_2]
+mov ebx, [number_q1]
+mov edx,0
+cmp eax, 0
+jl @f
+mov edx, -1
+@@:
+idiv ebx
+mov [monster_mean_world_coords_q1_2], eax
+
+//q2
+divide_q2:
+cmp [number_q2], 0
+je divide_q3
+mov eax, [monster_mean_world_coords_q2_1]
+mov ebx, [number_q2]
+mov edx,0
+cmp eax, 0
+jl @f
+mov edx, -1
+@@:
+idiv ebx
+mov [monster_mean_world_coords_q2_1], eax
+
+mov eax, [monster_mean_world_coords_q2_2]
+mov ebx, [number_q2]
+mov edx,0
+cmp eax, 0
+jl @f
+mov edx, -1
+@@:
+idiv ebx
+mov [monster_mean_world_coords_q2_2], eax
+
+
+
+
+//q3
+divide_q3:
+cmp [number_q3], 0
+je divide_q4
+mov eax, [monster_mean_world_coords_q3_1]
+mov ebx, [number_q3]
+mov edx,0
+cmp eax, 0
+jl @f
+mov edx, -1
+@@:
+idiv ebx
+mov [monster_mean_world_coords_q3_1], eax
+
+mov eax, [monster_mean_world_coords_q3_2]
+mov ebx, [number_q3]
+mov edx,0
+cmp eax, 0
+jl @f
+mov edx, -1
+@@:
+idiv ebx
+mov [monster_mean_world_coords_q3_2], eax
+
+//q4
+divide_q4:
+cmp [number_q4], 0
+je divide_q_done
+mov eax, [monster_mean_world_coords_q4_1]
+mov ebx, [number_q4]
+mov edx,0
+cmp eax, 0
+jl @f
+mov edx, -1
+@@:
+idiv ebx
+mov [monster_mean_world_coords_q4_1], eax
+
+mov eax, [monster_mean_world_coords_q4_2]
+mov ebx, [number_q4]
+mov edx,0
+cmp eax, 0
+jl @f
+mov edx, -1
+@@:
+idiv ebx
+mov [monster_mean_world_coords_q4_2], eax
+
+divide_q_done:
+
+
+
+
+
+
+
+//mov edx,0
+//mov ecx, [monster_number]
+//idiv ecx
+//mov [mean_world_monster_coords], eax
+
+//mov edx,0
+//mov eax, ebx
+//idiv ecx
+//mov ecx, mean_world_monster_coords
+//add ecx, 4
+//mov [ecx], eax
+
+////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+//Mean of world_monster_coords
+mov eax, 0
+mov ebx, 0
+mov edx, 0
+start_mean_world_monster_coords:
+cmp edx, dword ptr ds:[monster_number]
+jae finish_mean_world_monster_coords
+mov ecx, edx
+imul ecx, 8
+add ecx, monster_array
+add eax, [ecx]
+add ecx, 4
+add ebx, [ecx]
+inc edx
+jmp start_mean_world_monster_coords
+
+finish_mean_world_monster_coords:
+
+mov edx,0
+mov ecx, [monster_number]
+idiv ecx
+mov [mean_world_monster_coords], eax
+
+mov edx,0
+mov eax, ebx
+idiv ecx
+mov ecx, mean_world_monster_coords
+add ecx, 4
+mov [ecx], eax
+
+//weighted coords
+mov eax, [mean_world_monster_coords]
+mov ebx, [world_player_coord_1]
+imul eax, 1
+imul ebx, 1
+add eax, ebx
+mov edx, 0
+mov ebx, 2
+idiv ebx
+mov [weighted_world_monster_coords], eax
+
+mov ecx, mean_world_monster_coords
+add ecx, 4
+mov eax, [ecx]
+mov ebx, [world_player_coord_2]
+imul eax, 1
+imul ebx, 1
+add eax, ebx
+mov edx, 0
+mov ebx, 2
+idiv ebx
+mov ecx, weighted_world_monster_coords
+add ecx, 4
+mov [ecx], eax
+
+//Calculate monster relative coordinates
+mov eax, dword ptr ds:[weighted_world_monster_coords]
+sub eax, dword ptr ds:[world_player_coord_1]
+mov dword ptr ds:[relative_monster_coord_1], eax
+
+mov ecx, weighted_world_monster_coords
+add ecx, 4
+mov eax, dword ptr ds:[ecx]
+sub eax, dword ptr ds:[world_player_coord_2]
+mov dword ptr ds:[relative_monster_coord_2], eax
+
+//Applying rotation
+mov eax, dword ptr ds:[relative_monster_coord_1]
+add eax, dword ptr ds:[relative_monster_coord_2]
+imul eax, 7
+mov ebx, A
+mov edx, 0
+cmp eax, 0
+jge @f
+mov edx, -1
+@@:
+idiv ebx
+add eax, 122
+mov dword ptr ds:[screen_monster_coord_1], eax
+
+mov eax, dword ptr ds:[relative_monster_coord_1]
+sub eax dword ptr ds:[relative_monster_coord_2]
+imul eax, 7
+mov ebx, A
+mov edx, 0
+cmp eax, 0
+jge @f
+mov edx, -1
+@@:
+idiv ebx
+add eax, 190
+mov dword ptr ds:[screen_monster_coord_2], eax
+
+//push parameters
+push dword ptr ds:[screen_monster_coord_1]
+push dword ptr ds:[screen_monster_coord_2]
+push 00000002               // No Ctrl or Shift pressed
+//requirements for the call
+mov ecx, dword ptr ds:["Conquer.exe"+8DCA98]
+mov ebx, dword ptr ds:[screen_monster_coord_1]
+mov eax, dword ptr ds:[screen_monster_coord_2]
+call "Conquer.exe"+2EE82A
+
+//push sleep_interval_before_move
+//call sleep_address
+
+//push parameters
+//push dword ptr ds:[screen_monster_coord_1]
+//push dword ptr ds:[screen_monster_coord_2]
+//push 00000001               // No Ctrl or Shift pressed
+//push 00000009             // Ctrl pressed
+//push 00000005             // Shift pressed
+//push 0000000D             // Ctrl and Shift pressed
+//requirements for the call
+//mov ecx, dword ptr ds:["Conquer.exe"+8DCA98]
+//mov ebx, dword ptr ds:[screen_monster_coord_1]
+//mov eax, dword ptr ds:[screen_monster_coord_2]
+//call "Conquer.exe"+2EB667
+
+push critical_section
+call EnterCriticalSection_address
+
+mov ecx, ["Conquer.exe"+8DB4EC]
+
+mov eax, [relative_monster_coord_2]
+mov edx, 0
+cmp eax, 0
+jge @f
+mov edx, -1
+@@:
+imul eax, 2
+mov ebx, 64
+idiv ebx
+mov [relative_city_local_monster_coord_2], eax
+
+mov eax, [relative_monster_coord_1]
+mov edx, 0
+cmp eax, 0
+jge @f
+mov edx, -1
+@@:
+imul eax, 2
+mov ebx, 64
+idiv ebx
+mov [relative_city_local_monster_coord_1], eax
+
+
+push 4
+call get_random_int_function
+sub eax, 2
+add eax, [relative_city_local_monster_coord_1]
+mov [relative_city_local_monster_coord_1], eax
+
+push 4
+call get_random_int_function
+sub eax, 2
+add eax, [relative_city_local_monster_coord_2]
+mov [relative_city_local_monster_coord_2], eax
+
+mov ebp, 0
+add ebp, [relative_city_local_monster_coord_1]
+cmp [relative_city_local_monster_coord_1], 0
+jge @f
+sub ebp, [relative_city_local_monster_coord_1]
+sub ebp, [relative_city_local_monster_coord_1]
+@@:
+add ebp, [relative_city_local_monster_coord_2]
+cmp [relative_city_local_monster_coord_2], 0
+jge @f
+sub ebp, [relative_city_local_monster_coord_2]
+sub ebp, [relative_city_local_monster_coord_2]
+@@:
+add ebp, 1
+mov eax, [relative_city_local_monster_coord_1]
+imul eax, 8
+mov edx, 0
+cmp eax, 0
+jge @f
+mov edx, -1
+@@:
+idiv ebp
+mov [relative_city_local_monster_coord_1], eax
+mov eax, [relative_city_local_monster_coord_2]
+imul eax, 8
+mov edx, 0
+cmp eax, 0
+jge @f
+mov edx, -1
+@@:
+idiv ebp
+mov [relative_city_local_monster_coord_2], eax
+
+mov ecx, ["Conquer.exe"+8DB4EC]
+mov eax, [relative_city_local_monster_coord_2]
+add eax, [ecx+4C8]
+push eax
+mov [coord_to_jump_2], eax
+//push 4
+//call get_random_int_function
+//pop edx
+//sub eax, 2
+//add eax, edx
+//push eax
+
+
+mov eax, [relative_city_local_monster_coord_1]
+mov ecx, ["Conquer.exe"+8DB4EC]
+add eax, [ecx+4C4]
+push eax
+mov [coord_to_jump_1], eax
+//push 4
+//call get_random_int_function
+//pop edx
+//sub eax, 2
+//add eax, edx
+//push eax
+
+push critical_section
+call LeaveCriticalSection_address
+
+
+// Check coords again ....
+mov ecx, ["Conquer.exe"+8DB4EC]
+mov eax, [ecx+4C4]
+sub eax, [coord_to_jump_1]
+cmp eax, A
+jg @f
+cmp eax, -A
+jl @f
+mov eax, [ecx+4C8]
+sub eax, [coord_to_jump_2]
+cmp eax, A
+jg @f
+cmp eax, -A
+jl @f
+jmp done_checking
+@@:
+push 0
+push 0
+push message_1
+push 0
+call 74767E60 //MessageBox address
+done_checking:
+
+// done checking ....
+
+// if both zero, nothing.
+cmp [relative_city_local_monster_coord_1], 0
+jne @f
+cmp [relative_city_local_monster_coord_2], 0
+jne @f
+add esp, 8
+jmp thread_loop
+@@:
+
+
+cmp [changeCityLocalCoord], 1
+je @f
+add esp, 8
+jmp thread_loop
+@@:
+
+//mov ebx, 2
+//mov edx, 0
+//mov eax, [counter]
+//idiv ebx
+//add esp, 8        //
+////cmp edx, 0
+//jne @f
+//sub esp, 8        //
+
+mov [changeCityLocalCoord], 0
+mov eax, [counter]
+mov [change_local_city_coord_reset_counter], eax
+mov ecx, ["Conquer.exe"+8DB4E4]
+call "Conquer.exe"+369F07
+cmp [failedJump], 0
+je @f
+mov [changeCityLocalCoord], 1
+@@:
+jne @f
+push sleep_interval_after_move
+call sleep_address
+@@:
+
+
+//add esp, C
+
+mov eax, [counter]
+mov [last_counter], eax
+jmp thread_loop
+finish:
+ret
+
+
+//returns an integer between 0 and the passed integer (0 inclusive).
+get_random_int_function:
+push ebp
+mov ebp, esp
+call timeGetTime_address
+push eax
+mov eax, esp
+push eax
+call RtlRandom_address
+add esp, 4
+mov edx, 0
+mov ebx, [ebp+8]
+idiv ebx
+mov eax, edx
+mov esp, ebp
+pop ebp
+ret 4
+
+
+move_to_a_given_point_with_counter_inc:
+inc [counter_to_restart_monster_chase]
+mov eax, [counter_to_restart_monster_chase]
+mov edx, 0
+mov ebx, 4
+idiv ebx
+mov [counter_to_restart_monster_chase], edx
+
+move_to_a_given_point:
+push 12C
+call sleep_address
+
+//change destination point if necessary.
+mov eax, [alternative_destination_point]
+mov ebx, alternative_destination_point
+add ebx, 4
+mov ebx, [ebx]
+
+mov ecx, ["Conquer.exe"+8DB4EC]
+sub eax, [ecx+4C4]
+sub ebx, [ecx+4C8]
+mov ecx, 0
+add ecx, eax
+cmp eax, 0
+jge @f
+sub ecx, eax
+sub ecx, eax
+@@:
+add ecx, ebx
+cmp ebx, 0
+jge @f
+sub ecx, ebx
+sub ecx, ebx
+@@:
+cmp ecx, 19
+jg @f
+//mov ecx, [last_counter]
+//add ecx, 3
+//cmp ecx, [counter]
+//jg @f
+push 2
+call get_random_int_function
+add eax, 1
+add eax, [current_destination_point_index]
+mov edx, 0
+mov ebx, 3
+idiv ebx
+mov [current_destination_point_index], edx
+imul edx, 8
+mov ebx, given_points
+mov eax, [ebx+edx]
+mov [alternative_destination_point], eax
+mov eax, [ebx+edx+4]
+mov ecx, alternative_destination_point
+add ecx, 4
+mov [ecx], eax
+@@:
+
+
+//move towards the destination point.
+
+push 4
+call get_random_int_function
+sub eax, 2
+add eax, [alternative_destination_point]
+push eax
+
+push 4
+call get_random_int_function
+sub eax, 2
+mov ebx, alternative_destination_point
+add ebx, 4
+mov ebx, [ebx]
+add ebx, eax
+pop eax
+
+mov ecx, ["Conquer.exe"+8DB4EC]
+sub eax, [ecx+4C4]
+sub ebx, [ecx+4C8]
+mov ecx, 0
+add ecx, eax
+cmp eax, 0
+jge @f
+sub ecx, eax
+sub ecx, eax
+@@:
+add ecx, ebx
+cmp ebx, 0
+jge @f
+sub ecx, ebx
+sub ecx, ebx
+@@:
+add ecx, 1
+imul eax, 6
+mov edx, 0
+cmp eax, 0
+jge @f
+mov edx, -1
+@@:
+idiv ecx
+
+push eax
+
+mov eax, ebx
+imul eax, 6
+mov edx, 0
+cmp eax, 0
+jge @f
+mov edx, -1
+@@:
+idiv ecx
+
+pop ebx
+
+mov ecx, ["Conquer.exe"+8DB4EC]
+add ebx, [ecx+4C4]
+add eax, [ecx+4C8]
+
+push ebx
+push eax
+
+push 4
+call get_random_int_function
+pop edx
+sub eax, 2
+add eax, edx
+
+pop ebx
+push eax
+push ebx
+
+push 4
+call get_random_int_function
+pop edx
+sub eax, 2
+add eax, edx
+push eax
+
+cmp [changeCityLocalCoord], 1
+je @f
+add esp, 8
+jmp thread_loop
+@@:
+
+mov [changeCityLocalCoord], 0
+mov eax, [counter]
+mov [change_local_city_coord_reset_counter], eax
+mov ecx, ["Conquer.exe"+8DB4E4]
+call "Conquer.exe"+369F07
+cmp [failedJump], 0
+je @f
+mov [changeCityLocalCoord], 1
+@@:
+jne @f
+push sleep_interval_after_move
+call sleep_address
+@@:
+
+jmp thread_loop
+
+
+createThread(thread_start)
+
+
+
+[DISABLE]
+
+dealloc(newmem8)
+unregisterSymbol(newmem8)
+unregisterSymbol(thread_start)
+unregisterSymbol(kill_thread)
+unregisterSymbol(counter)
+unregisterSymbol(get_random_int_function)
+unregisterSymbol(move_to_a_given_point)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>45</ID>
+      <Description>"auto attack BladeGhost with skill"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+alloc(newmem8, 3000)
+registerSymbol(newmem8)
+label(thread_start)
+registerSymbol(thread_start)
+label(kill_thread)
+registerSymbol(kill_thread)
+define(sleep_address, 74BA85B0)
+define(sleep_interval, 12C)
+define(sleep_interval_after_move, 100)
+define(sleep_interval_before_move, 1F4)
+//define(freeLibraryAndExitThread_address, 75BE49A0)
+define(InitialCiticalSection_address, 77ADD280)
+define(EnterCriticalSection_address, 77ABEB60)
+define(LeaveCriticalSection_address, 77ABE870)
+//define(DeleteCriticalSection_address, 77E7D6E0)
+//define(_endThread_address, 743C3251)
+//define(_endThreadEx_address, 743C33EF)
+define(timeGetTime_address, 74A18830)
+define(RtlRandom_address, 77AD4FE0)
+define(max_number_of_monsters, 30)
+label(counter)
+registerSymbol(counter)
+label(get_random_int_function)
+registerSymbol(get_random_int_function)
+label(move_to_a_given_point)
+registerSymbol(move_to_a_given_point)
+newmem8:
+//variables
+
+world_monster_coord_1:
+dd 0
+world_monster_coord_2:
+dd 0
+world_player_coord_1:
+dd 0
+world_player_coord_2:
+dd 0
+relative_monster_coord_1:
+dd 0
+relative_monster_coord_2:
+dd 0
+screen_monster_coord_1:
+dd 0
+screen_monster_coord_2:
+dd 0
+relative_city_local_monster_coord_1:
+dd 0
+relative_city_local_monster_coord_2:
+dd 0
+
+monster_array:
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+dd 80000000
+
+monster_number:
+dd 0
+
+kill_thread:
+dd 0
+
+mean_world_monster_coords:
+dd 80000000
+dd 80000000
+
+weighted_world_monster_coords:
+dd 80000000
+dd 80000000
+
+accepted_range_A_coord_1:
+dd 80000000
+accepted_range_A_coord_2:
+dd 80000000
+accepted_range_B_coord_1:
+dd 80000000
+accepted_range_B_coord_2:
+dd 80000000
+
+critical_section:
+dq 0
+dq 0
+dq 0
+dq 0
+dq 0
+
+counter:
+dd 0
+
+last_counter:
+dd 0
+
+given_points:
+dd AB       //354
+dd 181        //210
+dd 7D       //201
+dd 118        //274
+dd B1       //234
+dd 116       //81
+
+alternative_destination_point:
+dd AB       //375
+dd 181       //81
+
+current_destination_point_index:
+dd 0
+
+last_coords:
+dd 0
+dd 0
+dd 0
+dd 0
+dd 0
+dd 0
+dd 0
+dd 0
+dd 0
+dd 0
+dd 0
+dd 0
+
+last_coords_index:
+dd 0
+
+thread_start:
+//push 3000
+//call sleep_address
+
+push critical_section
+call InitialCiticalSection_address
+
+thread_loop:
+inc [counter]
+push sleep_interval
+call sleep_address
+cmp [kill_thread], 1
+jne continue_thread
+mov [kill_thread], C8
+ret
+
+continue_thread:
+//reset monster_array
+mov [monster_number], 0
+mov [weighted_world_monster_coords], 80000000
+mov ecx, weighted_world_monster_coords
+add ecx, 4
+mov [ecx], 80000000
+
+mov [mean_world_monster_coords], 80000000
+mov ecx, mean_world_monster_coords
+add ecx, 4
+mov [ecx], 80000000
+
+
+mov eax, 0
+
+reset_moster_array:
+cmp eax, 64
+je fill_monster_array
+mov ebx, eax
+imul ebx, 4
+add ebx, monster_array
+mov [ebx], 80000000
+add, eax, 1
+jmp reset_moster_array
+
+
+fill_monster_array:
+
+push critical_section
+call EnterCriticalSection_address
+
+//Get player structure
+mov eax, dword ptr ds:["Conquer.exe"+8DB4E4]  // eax = player address
+//Get player world coordinates
+mov ebx, dword ptr ds:[eax+4]
+mov dword ptr ds:[world_player_coord_1], ebx
+add ebx, 3E8
+mov dword ptr ds:[accepted_range_A_coord_1], ebx
+sub ebx, 3E8
+sub ebx, 3E8
+mov dword ptr ds:[accepted_range_B_coord_1], ebx
+mov ebx, dword ptr ds:[eax+8]
+mov dword ptr ds:[world_player_coord_2], ebx
+add ebx, 3E8
+mov dword ptr ds:[accepted_range_A_coord_2], ebx
+sub ebx, 3E8
+sub ebx, 3E8
+mov dword ptr ds:[accepted_range_B_coord_2], ebx
+
+//update last coords array.
+mov eax, [last_coords_index]
+mov edx, 0
+mov ebx, 6
+idiv ebx
+imul edx, 8
+add edx, last_coords
+mov eax, [world_player_coord_1]
+mov [edx], eax
+mov eax, [world_player_coord_2]
+mov [edx+4], eax
+
+//check std.
+mov eax, 0
+mov ebp, 0
+mov ecx, 0
+check_std_sum_loop:
+mov edx, last_coords
+mov ebx, ecx
+imul ebx, 8
+add edx, ebx
+add eax, [edx]
+add ebp, [edx+4]
+inc ecx
+cmp ecx, 6
+je @f
+jmp check_std_sum_loop
+@@:
+mov edx, 0
+cmp eax, 0
+jge @f
+mov edx, -1
+@@:
+idiv ecx
+push eax
+
+mov eax, ebp
+mov edx, 0
+cmp eax, 0
+jge @f
+mov edx, -1
+@@:
+idiv ecx
+push eax
+// [esp+4] = mean of the last 6 coordinates first component
+// [esp] = mean of the last 6 coordinates second component
+
+mov eax, 0
+mov ecx, 0
+
+check_std_std_loop:
+mov edx, last_coords
+mov ebx, ecx
+imul ebx, 8
+add edx, ebx
+mov ebx, [edx]
+sub ebx, [esp+4]
+add eax, ebx
+cmp ebx, 0
+jge @f
+sub eax, ebx
+sub eax, ebx
+@@:
+mov ebx, [edx+4]
+sub ebx, [esp]
+add eax, ebx
+cmp ebx, 0
+jge @f
+sub eax, ebx
+sub eax, ebx
+@@:
+inc ecx
+cmp ecx, 6
+je @f
+jmp check_std_std_loop
+@@:
+mov edx, 0
+idiv ecx
+// eax = 2*std
+cmp eax, 7D0
+jle move_to_a_given_point
+
+add esp, 8
+
+
+//fill monster_array
+
+mov eax, ["Conquer.exe"+8E7D44]
+mov edx, 0
+start_loop:
+cmp [monster_number], max_number_of_monsters
+jae stop_filling_monster_array
+mov ebx, [eax+edx]
+cmp ebx, 0
+je stop_filling_monster_array
+
+{$TRY}
+mov ecx,[ebx]
+cmp byte ptr ds:[ecx+1A4], 'B'
+jne next_1
+cmp byte ptr ds:[ecx+1A5], 'l'
+jne next_1
+cmp byte ptr ds:[ecx+1A6], 'a'
+jne next_1
+cmp byte ptr ds:[ecx+1A7], 'd'
+jne next_1
+cmp byte ptr ds:[ecx+1A8], 'e'
+jne next_1
+cmp byte ptr ds:[ecx+1A9], 'G'
+jne next_1
+cmp byte ptr ds:[ecx+1AA], 'h'
+jne next_1
+cmp byte ptr ds:[ecx+1AB], 'o'
+jne next_1
+cmp byte ptr ds:[ecx+1AC], 's'
+jne next_1
+cmp byte ptr ds:[ecx+1AD], 't'
+jne next_1
+//cmp byte ptr ds:[ecx+1AE], 'e'
+//jne next_1
+cmp [ecx+2C4], 1
+je next_1
+mov esi, [ecx+C64]
+mov esi, [esi+0C]
+mov esi, [esi]
+cmp esi, 0
+jle next_1
+
+mov esi, [ecx+8]
+cmp esi, dword ptr ds:[accepted_range_A_coord_2]
+jge next_1
+cmp esi, dword ptr ds:[accepted_range_B_coord_2]
+jle next_1
+mov esi, [ecx+4]
+cmp esi, dword ptr ds:[accepted_range_A_coord_1]
+jge next_1
+cmp esi, dword ptr ds:[accepted_range_B_coord_1]
+jle next_1
+//mov [monster_array+4*edx], esi
+mov ebp, [monster_number]
+imul ebp, 8
+add ebp, monster_array
+mov [ebp], esi
+
+mov esi, [ecx+8]
+//mov [monster_array+4*edx+4], esi
+mov ebp, [monster_number]
+imul ebp, 8
+add ebp, monster_array
+mov [ebp+4], esi
+inc [monster_number]
+{$EXCEPT}
+
+next_1:
+cmp [eax+edx+4], 0
+je next_2
+
+{$TRY}
+mov ecx, [ebx+8]
+cmp byte ptr ds:[ecx+1A4], 'B'
+jne next_2
+cmp byte ptr ds:[ecx+1A5], 'l'
+jne next_2
+cmp byte ptr ds:[ecx+1A6], 'a'
+jne next_2
+cmp byte ptr ds:[ecx+1A7], 'd'
+jne next_2
+cmp byte ptr ds:[ecx+1A8], 'e'
+jne next_2
+cmp byte ptr ds:[ecx+1A9], 'G'
+jne next_2
+cmp byte ptr ds:[ecx+1AA], 'h'
+jne next_2
+cmp byte ptr ds:[ecx+1AB], 'o'
+jne next_2
+cmp byte ptr ds:[ecx+1AC], 's'
+jne next_2
+cmp byte ptr ds:[ecx+1AD], 't'
+jne next_2
+//cmp byte ptr ds:[ecx+1AE], 'e'
+//jne next_2
+cmp [ecx+2C4], 1
+je next_2
+mov esi, [ecx+C64]
+mov esi, [esi+0C]
+mov esi, [esi]
+cmp esi, 0
+jle next_2
+
+mov esi, [ecx+8]
+cmp esi, dword ptr ds:[accepted_range_A_coord_1]
+jge next_2
+cmp esi, dword ptr ds:[accepted_range_B_coord_1]
+jle next_2
+
+mov esi, [ecx+4]
+cmp esi, dword ptr ds:[accepted_range_A_coord_1]
+jge next_2
+cmp esi, dword ptr ds:[accepted_range_B_coord_1]
+jle next_2
+//mov [monster_array+4*edx+8], esi
+mov ebp, [monster_number]
+imul ebp, 8
+add ebp, monster_array
+mov [ebp], esi
+
+mov esi, [ecx+8]
+//mov [monster_array+4*edx+C], esi
+mov ebp, [monster_number]
+imul ebp, 8
+add ebp, monster_array
+mov [ebp+4], esi
+inc [monster_number]
+{$EXCEPT}
+
+next_2:
+add edx, 4
+jmp start_loop
+
+stop_filling_monster_array:
+
+push critical_section
+call LeaveCriticalSection_address
+
+//nothing if no monster coordinates
+cmp [monster_array], 80000000
+je move_to_a_given_point //je finish
+
+//Mean of world_monster_coords
+mov eax, 0
+mov ebx, 0
+mov edx, 0
+start_mean_world_monster_coords:
+cmp edx, dword ptr ds:[monster_number]
+jae finish_mean_world_monster_coords
+mov ecx, edx
+imul ecx, 8
+add ecx, monster_array
+add eax, [ecx]
+add ecx, 4
+add ebx, [ecx]
+inc edx
+jmp start_mean_world_monster_coords
+
+finish_mean_world_monster_coords:
+
+mov edx,0
+mov ecx, [monster_number]
+idiv ecx
+mov [mean_world_monster_coords], eax
+
+mov edx,0
+mov eax, ebx
+idiv ecx
+mov ecx, mean_world_monster_coords
+add ecx, 4
+mov [ecx], eax
+
+//mov eax, [monster_array]
+//cmp [closest_monster_coords], eax
+
+//mov [world_monster_coord_1] eax
+//mov eax, [monster_array+4]
+//mov [world_monster_coord_2] eax
+
+//weighted coords
+mov eax, [mean_world_monster_coords]
+mov ebx, [world_player_coord_1]
+imul eax, 1
+imul ebx, 1
+add eax, ebx
+mov edx, 0
+mov ebx, 2
+idiv ebx
+mov [weighted_world_monster_coords], eax
+
+mov ecx, mean_world_monster_coords
+add ecx, 4
+mov eax, [ecx]
+mov ebx, [world_player_coord_2]
+imul eax, 1
+imul ebx, 1
+add eax, ebx
+mov edx, 0
+mov ebx, 2
+idiv ebx
+mov ecx, weighted_world_monster_coords
+add ecx, 4
+mov [ecx], eax
+
+//Calculate monster relative coordinates
+mov eax, dword ptr ds:[weighted_world_monster_coords]
+sub eax, dword ptr ds:[world_player_coord_1]
+mov dword ptr ds:[relative_monster_coord_1], eax
+
+mov ecx, weighted_world_monster_coords
+add ecx, 4
+mov eax, dword ptr ds:[ecx]
+sub eax, dword ptr ds:[world_player_coord_2]
+mov dword ptr ds:[relative_monster_coord_2], eax
+
+//Applying rotation
+mov eax, dword ptr ds:[relative_monster_coord_1]
+add eax, dword ptr ds:[relative_monster_coord_2]
+imul eax, 7
+mov ebx, A
+mov edx, 0
+cmp eax, 0
+jge edx_equal_zero_1
+mov edx, -1
+edx_equal_zero_1:
+idiv ebx
+add eax, 122
+mov dword ptr ds:[screen_monster_coord_1], eax
+
+mov eax, dword ptr ds:[relative_monster_coord_1]
+sub eax dword ptr ds:[relative_monster_coord_2]
+imul eax, 7
+mov ebx, A
+mov edx, 0
+cmp eax, 0
+jge edx_equal_zero_2
+mov edx, -1
+edx_equal_zero_2:
+idiv ebx
+add eax, 190
+mov dword ptr ds:[screen_monster_coord_2], eax
+
+//push parameters
+push dword ptr ds:[screen_monster_coord_1]
+push dword ptr ds:[screen_monster_coord_2]
+push 00000002               // No Ctrl or Shift pressed
+//requirements for the call
+mov ecx, dword ptr ds:["Conquer.exe"+8DCA98]
+mov ebx, dword ptr ds:[screen_monster_coord_1]
+mov eax, dword ptr ds:[screen_monster_coord_2]
+call "Conquer.exe"+2EE82A
+
+push sleep_interval_before_move
+call sleep_address
+
+//push parameters
+//push dword ptr ds:[screen_monster_coord_1]
+//push dword ptr ds:[screen_monster_coord_2]
+//push 00000001               // No Ctrl or Shift pressed
+//push 00000009             // Ctrl pressed
+//push 00000005             // Shift pressed
+//push 0000000D             // Ctrl and Shift pressed
+//requirements for the call
+//mov ecx, dword ptr ds:["Conquer.exe"+8DCA98]
+//mov ebx, dword ptr ds:[screen_monster_coord_1]
+//mov eax, dword ptr ds:[screen_monster_coord_2]
+//call "Conquer.exe"+2EB667
+
+push critical_section
+call EnterCriticalSection_address
+
+mov ecx, ["Conquer.exe"+8DB4EC]
+
+mov eax, [relative_monster_coord_2]
+mov edx, 0
+cmp eax, 0
+jge @f
+mov edx, -1
+@@:
+imul eax, 2
+mov ebx, 64
+idiv ebx
+mov [relative_city_local_monster_coord_2], eax
+
+mov eax, [relative_monster_coord_1]
+mov edx, 0
+cmp eax, 0
+jge @f
+mov edx, -1
+@@:
+imul eax, 2
+mov ebx, 64
+idiv ebx
+mov [relative_city_local_monster_coord_1], eax
+
+//cmp eax, 0
+//jl set_written_on_screen_coords_offset_to_negative_thresholds_2:
+//cmp eax, 2
+//jge @f
+//mov eax, 2
+//@@:
+//cmp eax, 5
+//jle @f
+//mov eax, 5
+//@@:
+//jmp done_written_on_screen_coords_offset_to_negative_thresholds_2
+
+//set_written_on_screen_coords_offset_to_negative_thresholds_2:
+//cmp eax, -5
+//jge @f
+//mov eax, -5
+//@@:
+//cmp eax, -2
+//jle @f
+//mov eax, -2
+//@@:
+
+//done_written_on_screen_coords_offset_to_negative_thresholds_2:
+//push eax
+
+mov ebp, 0
+add ebp, [relative_city_local_monster_coord_1]
+cmp [relative_city_local_monster_coord_1], 0
+jge @f
+sub ebp, [relative_city_local_monster_coord_1]
+sub ebp, [relative_city_local_monster_coord_1]
+@@:
+add ebp, [relative_city_local_monster_coord_2]
+cmp [relative_city_local_monster_coord_2], 0
+jge @f
+sub ebp, [relative_city_local_monster_coord_2]
+sub ebp, [relative_city_local_monster_coord_2]
+@@:
+add ebp, 1
+mov eax, [relative_city_local_monster_coord_1]
+imul eax, 9
+mov edx, 0
+cmp eax, 0
+jge @f
+mov edx, -1
+@@:
+idiv ebp
+mov [relative_city_local_monster_coord_1], eax
+mov eax, [relative_city_local_monster_coord_2]
+imul eax, 9
+mov edx, 0
+cmp eax, 0
+jge @f
+mov edx, -1
+@@:
+idiv ebp
+mov [relative_city_local_monster_coord_2], eax
+
+
+mov eax, [relative_city_local_monster_coord_2]
+add eax, [ecx+4C8]
+push eax
+push 4
+call get_random_int_function
+pop edx
+sub eax, 2
+add eax, edx
+push eax
+
+//mov eax, [relative_monster_coord_1]
+//mov edx, 0
+//cmp eax, 0
+//jge @f
+//mov edx, -1
+//@@:
+//imul eax, 2
+//mov ebx, 64
+//idiv ebx
+
+//cmp eax, 0
+//jl set_written_on_screen_coords_offset_to_negative_thresholds_1:
+//cmp eax, 2
+//jge @f
+//mov eax, 2
+//@@:
+
+//mov ebx, 5
+//sub ebx, ebp
+//cmp esi, 0
+//jge @f
+//add ebx, ebp
+//add ebx, ebp
+//@@:
+//cmp eax, ebx
+//jle @f
+//mov eax, ebx
+//@@:
+
+//cmp eax, 7
+//jle @f
+//mov eax, 7
+//@@:
+
+//cmp eax, -7
+//jge @f
+//mov eax, -7
+//@@:
+
+//jmp done_written_on_screen_coords_offset_to_negative_thresholds_1
+
+//set_written_on_screen_coords_offset_to_negative_thresholds_1:
+
+
+//mov ebx, -5
+//add ebx, ebp
+//cmp ebp, 0
+//jge @f
+//sub ebx, ebp
+//sub ebx, ebp
+//@@:
+//cmp eax, ebx
+//jge @f
+//mov eax, ebx
+//@@:
+
+
+//cmp eax, -2
+//jle @f
+//mov eax, -2
+//@@:
+
+//done_written_on_screen_coords_offset_to_negative_thresholds_1:
+
+mov eax, [relative_city_local_monster_coord_1]
+mov ecx, ["Conquer.exe"+8DB4EC]
+add eax, [ecx+4C4]
+push eax
+push 4
+call get_random_int_function
+pop edx
+sub eax, 2
+add eax, edx
+push eax
+
+push critical_section
+call LeaveCriticalSection_address
+
+mov ecx, ["Conquer.exe"+8DB4E4]
+call "Conquer.exe"+369F07
+
+push 12C
+call sleep_address
+
+//add esp, C
+
+mov eax, [counter]
+mov [last_counter], eax
+jmp thread_loop
+finish:
+ret
+
+
+//returns an integer between 0 and the passed integer (0 inclusive).
+get_random_int_function:
+push ebp
+mov ebp, esp
+call timeGetTime_address
+push eax
+mov eax, esp
+push eax
+call RtlRandom_address
+add esp, 4
+mov edx, 0
+mov ebx, [ebp+8]
+idiv ebx
+mov eax, edx
+mov esp, ebp
+pop ebp
+ret 4
+
+
+
+move_to_a_given_point:
+push 12C
+call sleep_address
+
+//change destination point if necessary.
+mov eax, [alternative_destination_point]
+mov ebx, alternative_destination_point
+add ebx, 4
+mov ebx, [ebx]
+
+mov ecx, ["Conquer.exe"+8DB4EC]
+sub eax, [ecx+4C4]
+sub ebx, [ecx+4C8]
+mov ecx, 0
+add ecx, eax
+cmp eax, 0
+jge @f
+sub ecx, eax
+sub ecx, eax
+@@:
+add ecx, ebx
+cmp ebx, 0
+jge @f
+sub ecx, ebx
+sub ecx, ebx
+@@:
+cmp ecx, 8
+jg @f
+//mov ecx, [last_counter]
+//add ecx, 3
+//cmp ecx, [counter]
+//jg @f
+push 2
+call get_random_int_function
+add eax, 1
+add eax, [current_destination_point_index]
+mov edx, 0
+mov ebx, 3
+idiv ebx
+mov [current_destination_point_index], edx
+imul edx, 8
+mov ebx, given_points
+mov eax, [ebx+edx]
+mov [alternative_destination_point], eax
+mov eax, [ebx+edx+4]
+mov ecx, alternative_destination_point
+add ecx, 4
+mov [ecx], eax
+@@:
+
+
+//move towards the destination point.
+
+mov eax, [alternative_destination_point]
+mov ebx, alternative_destination_point
+add ebx, 4
+mov ebx, [ebx]
+
+mov ecx, ["Conquer.exe"+8DB4EC]
+sub eax, [ecx+4C4]
+sub ebx, [ecx+4C8]
+mov ecx, 0
+add ecx, eax
+cmp eax, 0
+jge @f
+sub ecx, eax
+sub ecx, eax
+@@:
+add ecx, ebx
+cmp ebx, 0
+jge @f
+sub ecx, ebx
+sub ecx, ebx
+@@:
+add ecx, 1
+imul eax, 8
+mov edx, 0
+cmp eax, 0
+jge @f
+mov edx, -1
+@@:
+idiv ecx
+
+push eax
+
+mov eax, ebx
+imul eax, 8
+mov edx, 0
+cmp eax, 0
+jge @f
+mov edx, -1
+@@:
+idiv ecx
+
+pop ebx
+
+mov ecx, ["Conquer.exe"+8DB4EC]
+add ebx, [ecx+4C4]
+add eax, [ecx+4C8]
+
+push ebx
+push eax
+
+push 4
+call get_random_int_function
+pop edx
+sub eax, 2
+add eax, edx
+
+pop ebx
+push eax
+push ebx
+
+push 4
+call get_random_int_function
+pop edx
+sub eax, 2
+add eax, edx
+push eax
+
+mov ecx, ["Conquer.exe"+8DB4E4]
+call "Conquer.exe"+369F07
+
+jmp thread_loop
+
+
+createThread(thread_start)
+
+
+
+[DISABLE]
+
+dealloc(newmem8)
+unregisterSymbol(newmem8)
+unregisterSymbol(thread_start)
+unregisterSymbol(kill_thread)
+unregisterSymbol(counter)
+unregisterSymbol(get_random_int_function)
+unregisterSymbol(move_to_a_given_point)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>48</ID>
+      <Description>"successful_and_failed_jump"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(newmem14, 1000)
+registerSymbol(failedJump)
+registerSymbol(changeCityLocalCoord)
+
+newmem14:
+
+failedJump:
+dd 0
+changeCityLocalCoord:
+dd 0
+
+editted_0076A0DD:
+mov [failedJump], 0
+jle @f
+mov [failedJump], 1
+@@:
+jle 0076A115
+call dword ptr [00B060A8]
+jmp 0076A0E5
+
+editted_0076A222:
+jne @f
+mov [failedJump], 1
+@@:
+je 0076A2B9
+jmp 0076A228
+
+editted_0076A1B5:
+jne @f
+mov [failedJump], 1
+@@:
+jne 0076A1DC
+call dword ptr [00B060A8]
+jmp 0076A1BD
+
+
+editted_0095B650:
+mov [changeCityLocalCoord], 1
+call 0094B2C0
+jmp 0095B655
+
+0076A0DD:
+jmp editted_0076A0DD
+nop
+nop
+nop
+
+
+0076A222:
+jmp editted_0076A222
+nop
+
+0076A1B5:
+jmp editted_0076A1B5
+nop
+nop
+nop
+
+0095B650:
+jmp editted_0095B650
+
+
+
+
+
+[DISABLE]
+dealloc(newmem14)
+unregisterSymbol(failedJump)
+unregisterSymbol(changeCityLocalCoord)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>50</ID>
+      <Description>"changeCityLocalCoord"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>changeCityLocalCoord</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>49</ID>
+      <Description>"failedJump"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>failedJump</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>19</ID>
+      <Description>"kill_thread"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>kill_thread</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>28</ID>
+      <Description>"counter to make sure thread is working"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>counter</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>47</ID>
+      <Description>"kill_continuous_jump_thread"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>kill_continuous_jump_thread</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"Monsters Array"</Description>
+      <LastState Value="05704F50" RealAddress="0D2FC230"/>
+      <ShowAsHex>1</ShowAsHex>
+      <VariableType>4 Bytes</VariableType>
+      <Address>Conquer.exe + 8E7D44</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>0</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>16</ID>
+      <Description>"Monsters ?"</Description>
+      <LastState Value="0D2FC230" RealAddress="0D1196B8"/>
+      <ShowAsHex>1</ShowAsHex>
+      <VariableType>4 Bytes</VariableType>
+      <Address>Conquer.exe + 8E7D44</Address>
+      <Offsets>
+        <Offset>0</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>22</ID>
+      <Description>"Another Key"</Description>
+      <LastState Value="08AA0078" RealAddress="00CDCA98"/>
+      <ShowAsHex>1</ShowAsHex>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Conquer.exe"+8DCA98</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"Key (passed to functions)"</Description>
+      <LastState Value="057005A8" RealAddress="00CDB4E4"/>
+      <ShowAsHex>1</ShowAsHex>
+      <VariableType>4 Bytes</VariableType>
+      <Address>Conquer.exe+8DB4E4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>26</ID>
+      <Description>"coord_written_on_screen_1"</Description>
+      <LastState Value="406" RealAddress="06966744"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>Conquer.exe+8DB4EC</Address>
+      <Offsets>
+        <Offset>4c4</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>27</ID>
+      <Description>"coord_written_on_screen_2"</Description>
+      <LastState Value="100" RealAddress="06966748"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>Conquer.exe+8DB4EC</Address>
+      <Offsets>
+        <Offset>4c8</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>31</ID>
+      <Description>"Message Widnow shown (not trade)"</Description>
+      <VariableType>Byte</VariableType>
+      <Address>78332345</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>32</ID>
+      <Description>"somehow related to the previous address"</Description>
+      <LastState Value="68" RealAddress="744FECB5"/>
+      <VariableType>Byte</VariableType>
+      <Address>gdi32full.dll+13ECB5</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>38</ID>
+      <Description>"No description"</Description>
+      <VariableType>String</VariableType>
+      <Length>12</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>04155FCC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>40</ID>
+      <Description>"No description"</Description>
+      <VariableType>String</VariableType>
+      <Length>12</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>04156EA4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>41</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0DBCCFB8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>42</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>4156D00+C64</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>0C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>43</ID>
+      <Description>"related to revive appearance"</Description>
+      <LastState Value="7" RealAddress="0111D5D0"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>C3_CORE_DLL.dll+BD5D0</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
