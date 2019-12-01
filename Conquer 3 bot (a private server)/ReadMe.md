@@ -31,5 +31,12 @@ One thing to notice is that world coordinates and city coordinates are not paral
 
 After collecting some data I found that
 
-
 <img src="https://latex.codecogs.com/gif.latex?\small&space;\textbf{Relative&space;screen&space;coordinates&space;}&space;=&space;A&space;\left(\textbf{Relative&space;world&space;coordinates&space;}\right)&space;&plus;&space;(290,400)" title="\small \textbf{Relative screen coordinates } = A \left(\textbf{Relative world coordinates }\right) + (290,400)" />
+
+where A is the rotation by 45 degree operator.
+Relative screen coordinates = monster screen coordinates - player screen coordinates
+Relative world coordinates = monster world coordinates - player world coordinates
+
+As for the city coordinates and world coordinates, I used the approximate result that I found
+
+<img src="https://latex.codecogs.com/gif.latex?\small&space;\textbf{Relative&space;citycoordinates&space;}&space;=&space;\frac{2}{100}\left(\textbf{Relative&space;world&space;coordinates&space;}\right)" title="\small \textbf{Relative citycoordinates } = \frac{2}{100}\left(\textbf{Relative world coordinates }\right)" />
