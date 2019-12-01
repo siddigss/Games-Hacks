@@ -37,6 +37,6 @@ where A is the rotation by 45 degree operator.
 Relative screen coordinates = monster screen coordinates - player screen coordinates
 Relative world coordinates = monster world coordinates - player world coordinates
 
-As for the city coordinates and world coordinates, I used the approximate result that I found
+As for the city coordinates and world coordinates, I used the quick approximate result that I found
 
 <img src="https://latex.codecogs.com/gif.latex?\small&space;\textbf{Relative&space;citycoordinates&space;}&space;=&space;\frac{2}{100}\left(\textbf{Relative&space;world&space;coordinates&space;}\right)" title="\small \textbf{Relative citycoordinates } = \frac{2}{100}\left(\textbf{Relative world coordinates }\right)" />
