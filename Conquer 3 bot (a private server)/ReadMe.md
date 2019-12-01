@@ -19,6 +19,7 @@ To resolve it, additional variable "changeCityLocalCoord" has been introduced by
 ## Improvement/To Do.
 + Avoid very strong monsters, which have very long health (over some millions). An idea to calculate the mean of monsters coordinates in four different directions and choosing the one with highest number of monsters that does not get too close to strong monsters.
 (this is why you will see labels like "monster_mean_world_coords_q1_1").
++ Click "revive" when dead.
 
 
 ## How it Works.
