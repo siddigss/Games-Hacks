@@ -1,4 +1,4 @@
-This is a kind of scratch version, but works properly.
+This is a kind of scratch version, but works properly.  
 This bot uses a monster name and a three points in the map.
 
 
@@ -23,7 +23,9 @@ To resolve it, additional variable "changeCityLocalCoord" has been introduced by
 
 ## How it Works.
 ### Game coordinates.
-The game uses three different coordinates and I will call them "World coordinates", "city coordinates" and "screen coordinates".
-The screen coordinates 
-
+The game uses three different coordinates and I will call them "World coordinates", "city coordinates" and "screen coordinates".  
+The screen coordinates as the name indicates are the window coordinates with the origin (0,0) being at the top left corner. The function used in the bot for the right click mouse uses this coordinate as parameters.  
+A world coordinate is a pair of integers for every point in the world of the game. The monsters coordinates the bots extracts from memory are stored in this coordinate format.  
+Finally, a city coordinate is the coordinate that you see written on top of the game screen which is unique for every point in the city only. The jump function the bot used uses this coordinate format.  
+One thing to notice is that world coordinates and city coordinates are tilted with respect to the screen.
 
