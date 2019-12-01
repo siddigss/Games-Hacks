@@ -27,5 +27,9 @@ The game uses three different coordinates and I will call them "World coordinate
 The screen coordinates as the name indicates are the window coordinates with the origin (0,0) being at the top left corner. The function used in the bot for the right click mouse uses this coordinate as parameters.  
 A world coordinate is a pair of integers for every point in the world of the game. The monsters coordinates the bots extracts from memory are stored in this coordinate format.  
 Finally, a city coordinate is the coordinate that you see written on top of the game screen which is unique for every point in the city only. The jump function the bot used uses this coordinate format.  
-One thing to notice is that world coordinates and city coordinates are tilted with respect to the screen.
+One thing to notice is that world coordinates and city coordinates are not parallel to the screen coordinates.  
 
+After collecting some data I found that
+
+
+<img src="https://latex.codecogs.com/gif.latex?\small&space;\textbf{Relative&space;screen&space;coordinates&space;}&space;=&space;A&space;\left(\textbf{Relative&space;world&space;coordinates&space;}\right)&space;&plus;&space;(290,400)" title="\small \textbf{Relative screen coordinates } = A \left(\textbf{Relative world coordinates }\right) + (290,400)" />
