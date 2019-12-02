@@ -44,11 +44,11 @@ As for the city coordinates and world coordinates, I used the quick approximate 
 
 
 ## Filling Curiosity and some statistics.
-### Record damages
+### Recording damages.
 I wanted to know how the damage written on the status is related to the damage shown when hitting a monster. This is why I created this bot originally. You will find a script named "Record damages", when run it will inject a code to the place where the damage is subtracted from the monster health (surprisingly to me, this worked only for close range weapons. the bow has a different place and even a skill such as "scatter" has an even different place). This code will create a file named `damages.txt` in the game folder which will contain the damages recorded (when I hit monsters, I some times see knd of low damages which confused me and made me curious and started this project, however it turns out that this damage is not recorded by the "Record damages" script ! Nice coincidence, it is probably a result of some supportive skill or something, to find out later).  
 The injected code is a simple "fopen", "fprintf" and "fclose" as you can check it. The collected data can be found in this folder as well, they are named `38-72.txt` and `179-492.txt`. The names indicate the upper attack bound and the lower attack bound. The data in the files are numbers separated by one "new line" each, and there is an additional "new line" at the end of the files.
 
-### Observations
+### Observations and proposing a model.
 First some statistics.  
 `38-72.txt`  
 count 	1223.000000  
@@ -111,4 +111,39 @@ lower_bounds = (sorted_real_damages) / sorted_status_damages
 print('lower bound: {}'.format(lower_bounds.max()))
 print('upper bound: {}'.format(upper_bounds.min()))
 ```
+and the output is 
+```
+lower bound: 1.175
+upper bound: 1.175054704595186
+```
+So, we will settle for the value `1.175`. With this value of alpha the range (image) of out model now is the same as the unique values extracted from the data. Th output of the following code is `0`.
 
+```
+np.sum(np.abs((1.175*sorted_status_damages).astype(int)-sorted_real_damages))
+```
+
+### Testing the model.
+We are going to use the Chi squared test to compare the data against our model. But first let's quickly look at our model distribution.  
+
+<p align="center">
+<img src="https://latex.codecogs.com/svg.latex?\dpi{120}&space;\mathbb{P}\left&space;(&space;\left&space;\lfloor&space;\alpha&space;\textup{U}_{[\textup{LA},\textup{UA}]}&space;\right&space;\rfloor=x&space;\right&space;)\\&space;\\=&space;\mathbb{P}\left&space;(&space;\frac{x}{\alpha}\leq&space;\textup{U}_{[\textup{LA},\textup{UA}]}&space;\leq&space;\frac{x&plus;1}{\alpha}\right&space;)&space;\\\\&space;=&space;\frac{1}{\textup{UA&space;}-&space;\textup{LA}}\left&space;(&space;\textrm{number&space;of&space;integers&space;between&space;}&space;\frac{x&plus;1}{\alpha}&space;\textrm{&space;and&space;}\frac{x}{\alpha}\right&space;)" title="\mathbb{P}\left ( \left \lfloor \alpha \textup{U}_{[\textup{LA},\textup{UA}]} \right \rfloor=x \right )\\ \\= \mathbb{P}\left ( \frac{x}{\alpha}\leq \textup{U}_{[\textup{LA},\textup{UA}]} \leq \frac{x+1}{\alpha}\right ) \\\\ = \frac{1}{\textup{UA }- \textup{LA}}\left ( \textrm{number of integers between } \frac{x+1}{\alpha} \textrm{ and }\frac{x}{\alpha}\right )" /> </p>
+
+Since the interval [(x+1)/alpha, x/alpha] has length less than once (since alpha is greater than 1), it can contains one integer at most. Therefore the model distribution is `uniform on it range`.
+
+```
+from scipy import stats
+frequency_d1 = damages_1['damage'].value_counts()
+frequency_d2 = damages_2['damage'].value_counts()
+
+print(stats.chisquare(frequency_d1)) #chisquare by default tests against uniform distribution.
+print(stats.chisquare(frequency_d2))
+```
+The output is 
+```
+(statistic=16.938675388389207, pvalue=0.9936057205808165)
+(statistic=308.6167824692678, pvalue=0.5593543532473144)
+```
+
+Both pvalues are greater than the typical `0.05` value.
+
+... つづく
