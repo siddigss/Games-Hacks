@@ -13,7 +13,7 @@ This bot uses a monster name and a three points in the map.
 
 ## Issues.
 + High jumps sometimes which results in sever disconnection.
-To resolve it, additional variable "changeCityLocalCoord" has been introduced by injecting code into the function the changes the "city coordinates" to wait for the change after the jump before asking for a new jump using the old coordinates.
+To resolve it, additional variable "changeCityLocalCoord" has been introduced by injecting code into the function that changes the "city coordinates" to wait for the change after the jump before asking for a new jump using the old coordinates (still under test).
 
 
 ## Improvement/To Do.
