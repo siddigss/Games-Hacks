@@ -146,6 +146,6 @@ The output is
 (statistic=308.6167824692678, pvalue=0.5593543532473144)
 ```
 
-Both pvalues are greater than the typical `0.05` value.
+Both pvalues are greater than the typical `0.05` value (our model is good enough).
 
 ... つづく
