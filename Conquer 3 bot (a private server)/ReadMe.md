@@ -49,8 +49,10 @@ I wanted to know how the damage written on the status is related to the damage s
 The injected code is a simple "fopen", "fprintf" and "fclose" as you can check it. The collected data can be found in this folder as well, they are named `38-72.txt` and `179-492.txt`. The names indicate the upper attack bound and the lower attack bound. The data in the files are numbers separated by one "new line" each, and there is an additional "new line" at the end of the files.
 
 ### Observations
-Plotting the data we see some kind of uniformity (although, I imagine it would be normal).
+Plotting the data we see some kind of uniformity (although, I imagined it would be normal).
 
 <p align="center">
 <img src= https://i.imgur.com/97aCAyv.png><br>
 </p>
+
+Moreover, the number of unique values in the `38-72.txt` is `35` which is `72-38+1` (the number of integers in the interval [38,72]).
