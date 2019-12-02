@@ -55,4 +55,9 @@ Plotting the data we see some kind of uniformity (although, I imagined it would 
 <img src= https://i.imgur.com/97aCAyv.png><br>
 </p>
 
-Moreover, the number of unique values in the `38-72.txt` is `35` which is `72-38+1` (the number of integers in the interval [38,72]).
+Moreover, the number of unique values in the `38-72.txt` is `35` which is `72-38+1` (the number of integers in the interval [38,72]). Similarly for `179-492.txt`. Hence we directly have a suggestive candidate to test against which is
+
+<p align="center">
+<img src="https://latex.codecogs.com/gif.latex?\dpi{150}&space;\large&space;\left&space;\lfloor&space;\alpha&space;\textup{U}_{[\textup{UA},\textup{LA}]}&space;\right&space;\rfloor&space;&plus;&space;b" title="\large \left \lfloor \alpha \textup{U}_{[\textup{UA},\textup{LA}]} \right \rfloor + b" /></br>
+ </p>
+ where <img src="https://latex.codecogs.com/gif.latex?\dpi{150}&space;\large&space;\left&space;\lfloor&space;x&space;\right&space;\rfloor" title="\large \left \lfloor x \right \rfloor" /> is the integer part (the largest integer less than x).
