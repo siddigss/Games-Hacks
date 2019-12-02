@@ -130,7 +130,7 @@ We are going to use the Chi squared test to compare the data against our model. 
 <p align="center">
 <img src="https://latex.codecogs.com/svg.latex?\dpi{120}&space;\mathbb{P}\left&space;(&space;\left&space;\lfloor&space;\alpha&space;\textup{U}_{[\textup{LA},\textup{UA}]}&space;\right&space;\rfloor=x&space;\right&space;)\\&space;\\=&space;\mathbb{P}\left&space;(&space;\frac{x}{\alpha}\leq&space;\textup{U}_{[\textup{LA},\textup{UA}]}&space;\leq&space;\frac{x&plus;1}{\alpha}\right&space;)&space;\\\\&space;=&space;\frac{1}{\textup{UA&space;}-&space;\textup{LA}}\left&space;(&space;\textrm{number&space;of&space;integers&space;between&space;}&space;\frac{x&plus;1}{\alpha}&space;\textrm{&space;and&space;}\frac{x}{\alpha}\right&space;)" title="\mathbb{P}\left ( \left \lfloor \alpha \textup{U}_{[\textup{LA},\textup{UA}]} \right \rfloor=x \right )\\ \\= \mathbb{P}\left ( \frac{x}{\alpha}\leq \textup{U}_{[\textup{LA},\textup{UA}]} \leq \frac{x+1}{\alpha}\right ) \\\\ = \frac{1}{\textup{UA }- \textup{LA}}\left ( \textrm{number of integers between } \frac{x+1}{\alpha} \textrm{ and }\frac{x}{\alpha}\right )" /> </p>
 
-Since the interval [(x+1)/alpha, x/alpha] has length less than one (since alpha is greater than 1), it can contains one integer at most. Therefore the model distribution is `uniform on it range`.
+Since the interval [(x+1)/alpha, x/alpha] has length less than one (since alpha is greater than 1), it contains one integer at most. Therefore the model distribution is `uniform on it range (image)`.
 
 ```
 from scipy import stats
