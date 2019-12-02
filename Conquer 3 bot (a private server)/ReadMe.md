@@ -46,16 +46,9 @@ As for the city coordinates and world coordinates, I used the quick approximate 
 ## Filling Curiosity and some statistics.
 ### Record damages
 I wanted to know how the damage written on the status is related to the damage shown when hitting a monster. This is why I created this bot originally. You will find a script named "Record damages", when run it will inject a code to the place where the damage is subtracted from the monster health (surprisingly to me, this worked only for close range weapons. the bow has a different place and even a skill such as "scatter" has an even different place). This code will create a file named `damages.txt` in the game folder which will contain the damages recorded (when I hit monsters, I some times see knd of low damages which confused me and made me curious and started this project, however it turns out that this damage is not recorded by the "Record damages" script ! Nice coincidence, it is probably a result of some supportive skill or something, to find out later).  
-The injected code is a simple "fopen", "fprintf" and "fclose" as you can check it. The collected data can be found in this folder as well, here is a sample
-`52
-47
-79
-56
-72
-56
-72
-66
-59
-49
-55
-50`
+The injected code is a simple "fopen", "fprintf" and "fclose" as you can check it. The collected data can be found in this folder as well, they are named `38-72.txt` and `179-492.txt`. The names indicate the upper attack bound and the lower attack bound. The data in the files are numbers separated by one "new line" each, and there is an additional "new line" at the end of the files.
+
+### Observations
+
+
+
