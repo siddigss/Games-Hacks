@@ -42,6 +42,8 @@ As for the city coordinates and world coordinates, I used the quick approximate 
 
 <img src="https://latex.codecogs.com/gif.latex?\small&space;\textbf{Relative&space;citycoordinates&space;}&space;=&space;\frac{2}{100}\left(\textbf{Relative&space;world&space;coordinates&space;}\right)" title="\small \textbf{Relative citycoordinates } = \frac{2}{100}\left(\textbf{Relative world coordinates }\right)" />
 
+## Move towards monster clusterings.
+We calculate the mean of the collected relative monster coordinates and then move about 10 units (screen coordinates) in that direction
 
 ## Filling Curiosity and some statistics.
 ### Recording damages.
