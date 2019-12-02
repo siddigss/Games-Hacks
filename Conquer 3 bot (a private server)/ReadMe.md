@@ -89,3 +89,4 @@ Moreover, the number of unique values in the `38-72.txt` is `35` which is `72-38
  <img src="https://latex.codecogs.com/gif.latex?\dpi{120}&space;578&space;-&space;210&space;=&space;\left&space;\lfloor&space;492\alpha&space;\right&space;\rfloor&space;-&space;\left&space;\lfloor&space;179\alpha&space;\right&space;\rfloor&space;\\\\&space;\Rightarrow&space;1.179\approx&space;\frac{369}{313}\geq\alpha\geq\frac{367}{313}\approx&space;1.1725" title="578 - 210 = \left \lfloor 492\alpha \right \rfloor - \left \lfloor 179\alpha \right \rfloor \\\\ \Rightarrow 1.179\approx \frac{369}{313}\geq\alpha\geq\frac{367}{313}\approx 1.1725" /></br>
  </p>
 
+
