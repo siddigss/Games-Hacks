@@ -49,6 +49,29 @@ I wanted to know how the damage written on the status is related to the damage s
 The injected code is a simple "fopen", "fprintf" and "fclose" as you can check it. The collected data can be found in this folder as well, they are named `38-72.txt` and `179-492.txt`. The names indicate the upper attack bound and the lower attack bound. The data in the files are numbers separated by one "new line" each, and there is an additional "new line" at the end of the files.
 
 ### Observations
+First some statistics.
+`38-72.txt`
+count 	1223.000000  
+mean 	64.022077  
+std 	11.698000  
+min 	44.000000  
+25% 	54.000000  
+50% 	64.000000  
+75% 	74.000000  
+max 	84.000000  
+unique 35
+
+`179-492.txt`
+count 	3742.000000
+mean 	396.136291
+std 	107.403618
+min 	210.000000
+25% 	301.000000
+50% 	400.000000
+75% 	489.000000
+max 	578.000000
+unique 314
+
 Plotting the data we see some kind of uniformity (although, I imagined it would be normal).
 
 <p align="center">
@@ -58,6 +81,11 @@ Plotting the data we see some kind of uniformity (although, I imagined it would 
 Moreover, the number of unique values in the `38-72.txt` is `35` which is `72-38+1` (the number of integers in the interval [38,72]). Similarly for `179-492.txt`. Hence we directly have a suggestive candidate to test against which is
 
 <p align="center">
-<img src="https://latex.codecogs.com/gif.latex?\dpi{150}&space;\large&space;\left&space;\lfloor&space;\alpha&space;\textup{U}_{[\textup{UA},\textup{LA}]}&space;\right&space;\rfloor&space;&plus;&space;b" title="\large \left \lfloor \alpha \textup{U}_{[\textup{UA},\textup{LA}]} \right \rfloor + b" /></br>
+<img src="https://latex.codecogs.com/gif.latex?\dpi{150}&space;\large&space;\left&space;\lfloor&space;\alpha&space;\textup{U}_{[\textup{UA},\textup{LA}]}&space;\right&space;\rfloor&space;&plus;&space;b" title="\large \left \lfloor \alpha \textup{U}_{[\textup{LA},\textup{UA}]} \right \rfloor + b" /></br>
  </p>
- where <img src="https://latex.codecogs.com/gif.latex?\dpi{150}&space;\large&space;\left&space;\lfloor&space;x&space;\right&space;\rfloor" title="\large \left \lfloor x \right \rfloor" /> is the integer part (the largest integer less than x).
+ where <img src="https://latex.codecogs.com/gif.latex?\dpi{150}&space;\large&space;\left&space;\lfloor&space;x&space;\right&space;\rfloor" title="\large \left \lfloor x \right \rfloor" /> is the integer part (the largest integer less than x), b is an integer, LA is the lower attack and UA is upper attack. U is the uniform random variables whose range is the integers in the interval [LA,UA]. Using the usual simple inequalities ![](https://latex.codecogs.com/gif.latex?\dpi{120}&space;x-1<\left&space;\lfloor&space;x&space;\right&space;\rfloor\leq&space;x" title="x-1<\left \lfloor x \right \rfloor\leq x)
+
+<p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?\dpi{120}&space;578&space;-&space;210&space;=&space;\left&space;\lfloor&space;492\alpha&space;\right&space;\rfloor&space;-&space;\left&space;\lfloor&space;179\alpha&space;\right&space;\rfloor&space;\\\\&space;\Rightarrow&space;1.179\approx&space;\frac{369}{313}\geq\alpha\geq\frac{367}{313}\approx&space;1.1725" title="578 - 210 = \left \lfloor 492\alpha \right \rfloor - \left \lfloor 179\alpha \right \rfloor \\\\ \Rightarrow 1.179\approx \frac{369}{313}\geq\alpha\geq\frac{367}{313}\approx 1.1725" /></br>
+ </p>
+
