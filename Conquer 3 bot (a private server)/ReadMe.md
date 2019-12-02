@@ -7,7 +7,7 @@ This bot uses a monster name and a three points in the map.
 + Run the script "auto attack wingedSnake with skill"
 + The monster name can be changed at lines 460 and 521 of the "auto attack wingedSnake with skill" script.
 + The three predetermined point in map can be changed at line 191 of the "auto attack wingedSnake with skill" script, which has the label "given_points".
-+ To avoid the usual message that asks you press a button to confirm you are a human run the program "Auto click No button". It will look for the game window and keep enumerating the children windows. Whenever it find a window with caption "No", it will send a click message ( BM_CLICK ) to it.
++ To avoid the usual message that asks you press a button to confirm you are a human run the program "Auto click No button". It will look for the game window and keep enumerating the children windows. Whenever it find a window with caption "Cancel", it will send a click message ( BM_CLICK ) to it.
 + To stop the the bot change the value of the variable "kill_thread" to 1. Killing the thread will start once its value becomes 200.
 
 
