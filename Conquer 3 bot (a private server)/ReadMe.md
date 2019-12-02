@@ -93,5 +93,22 @@ Applying this bound on the first file data we see
 <p align="center">
 <img src="https://latex.codecogs.com/svg.latex?\dpi{120}&space;0&space;=&space;44&space;-&space;\left&space;\lfloor&space;38\times&space;\frac{369}{313}&space;\right&space;\rfloor&space;\leq&space;b&space;\leq&space;44&space;-&space;\left&space;\lfloor&space;38\times&space;\frac{367}{313}&space;\right&space;\rfloor&space;=&space;0" title="0 = 44 - \left \lfloor 38\times \frac{369}{313} \right \rfloor \leq b \leq 44 - \left \lfloor 38\times \frac{367}{313} \right \rfloor = 0" /> </p>
 
-That is b=0. To find alpha now.
+That is b=0. From our collected data, we can refine the value of alpha even more, for example by running the following python code
+
+```
+import numpy as np
+import pandas as pd
+damages_1 = pd.read_csv('Data\\38-72.txt')
+damages_2 = pd.read_csv('Data\\179-492.txt')
+
+sorted_real_damages = np.sort(np.concatenate([damages_1['damage'].unique(), \
+                                      damages_2['damage'].unique()]))
+
+sorted_status_damages = np.concatenate([np.arange(38, 73), np.arange(179, 493)])
+upper_bounds = (sorted_real_damages+1) / sorted_status_damages
+lower_bounds = (sorted_real_damages) / sorted_status_damages
+
+print('lower bound: {}'.format(lower_bounds.max()))
+print('upper bound: {}'.format(upper_bounds.min()))
+```
 
