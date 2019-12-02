@@ -147,6 +147,6 @@ The output is
 ```
 
 Both p-values are greater than the typical `0.05` value (our model is good enough, in fact maybe Excellent).  
-Something to keep in mind, these data were collected from a Ninja. However, from our experience now, the problem is likely find an appropriate alpha.
+Something to keep in mind, these data were collected from a Ninja. However, from our experience now, the problem is likely to find an appropriate alpha.
 
 ... つづく
