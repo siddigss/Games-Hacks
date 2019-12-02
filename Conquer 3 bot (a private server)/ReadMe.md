@@ -50,7 +50,7 @@ The injected code is a simple "fopen", "fprintf" and "fclose" as you can check i
 
 ### Observations
 First some statistics.
-`38-72.txt`
+`38-72.txt`  
 count 	1223.000000  
 mean 	64.022077  
 std 	11.698000  
@@ -59,18 +59,18 @@ min 	44.000000
 50% 	64.000000  
 75% 	74.000000  
 max 	84.000000  
-unique 35
+unique 35  
 
-`179-492.txt`
-count 	3742.000000
-mean 	396.136291
-std 	107.403618
-min 	210.000000
-25% 	301.000000
-50% 	400.000000
-75% 	489.000000
-max 	578.000000
-unique 314
+`179-492.txt`  
+count 	3742.000000  
+mean 	396.136291  
+std 	107.403618  
+min 	210.000000  
+25% 	301.000000  
+50% 	400.000000  
+75% 	489.000000  
+max 	578.000000  
+unique 314  
 
 Plotting the data we see some kind of uniformity (although, I imagined it would be normal).
 
