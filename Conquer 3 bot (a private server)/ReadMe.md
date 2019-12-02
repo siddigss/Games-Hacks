@@ -86,7 +86,7 @@ Moreover, the number of unique values in the `38-72.txt` is `35` which is `72-38
  where <img src="https://latex.codecogs.com/gif.latex?\dpi{150}&space;\large&space;\left&space;\lfloor&space;x&space;\right&space;\rfloor" title="\large \left \lfloor x \right \rfloor" /> is the integer part (the largest integer less than x), b is an integer, LA is the lower attack and UA is upper attack. U is the uniform random variables whose range is the integers in the interval [LA,UA]. Using the usual simple inequalities 
  aaaa  ![](https://latex.codecogs.com/svg.latex?u%3D%5C%7B%28x_1%2Cy_1%29%2C%28x_2%2Cy_2%29%2C...%2C%28x_n%2Cy_n%29%5C%7D).  
  
-<p> aaa <img src="https://latex.codecogs.com/svg.latex?%5Cdpi%7B120%7D%20x-1%3C%5Cleft%20%5Clfloor%20x%20%5Cright%20%5Crfloor%5Cleq%20x">. </p>
+bbbb <p> aaa <img src="https://latex.codecogs.com/svg.latex?%5Cdpi%7B120%7D%20x-1%3C%5Cleft%20%5Clfloor%20x%20%5Cright%20%5Crfloor%5Cleq%20x">. </p>
 
 <p align="center">
  <img src="https://latex.codecogs.com/svg.latex?\dpi{120}&space;578&space;-&space;210&space;=&space;\left&space;\lfloor&space;492\alpha&space;\right&space;\rfloor&space;-&space;\left&space;\lfloor&space;179\alpha&space;\right&space;\rfloor&space;\\\\&space;\Rightarrow&space;1.179\approx&space;\frac{369}{313}\geq\alpha\geq\frac{367}{313}\approx&space;1.1725" title="578 - 210 = \left \lfloor 492\alpha \right \rfloor - \left \lfloor 179\alpha \right \rfloor \\\\ \Rightarrow 1.179\approx \frac{369}{313}\geq\alpha\geq\frac{367}{313}\approx 1.1725" /></br>
