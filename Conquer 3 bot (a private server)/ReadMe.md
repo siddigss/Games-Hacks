@@ -90,6 +90,8 @@ Moreover, the number of unique values in the `38-72.txt` is `35` which is `72-38
  </p>
 Applying this bound on the first file we see
 
-<img src="https://latex.codecogs.com/svg.latex?\dpi{120}&space;0&space;=&space;44&space;-&space;\left&space;\lfloor&space;38\times&space;\frac{369}{313}&space;\right&space;\rfloor&space;\leq&space;b&space;\leq&space;44&space;-&space;\left&space;\lfloor&space;38\times&space;\frac{367}{313}&space;\right&space;\rfloor&space;=&space;0" title="0 = 44 - \left \lfloor 38\times \frac{369}{313} \right \rfloor \leq b \leq 44 - \left \lfloor 38\times \frac{367}{313} \right \rfloor = 0" />
-That is b=0.
+<p align="center">
+<img src="https://latex.codecogs.com/svg.latex?\dpi{120}&space;0&space;=&space;44&space;-&space;\left&space;\lfloor&space;38\times&space;\frac{369}{313}&space;\right&space;\rfloor&space;\leq&space;b&space;\leq&space;44&space;-&space;\left&space;\lfloor&space;38\times&space;\frac{367}{313}&space;\right&space;\rfloor&space;=&space;0" title="0 = 44 - \left \lfloor 38\times \frac{369}{313} \right \rfloor \leq b \leq 44 - \left \lfloor 38\times \frac{367}{313} \right \rfloor = 0" /> </p>
+
+That is b=0. To find alpha now.
 
