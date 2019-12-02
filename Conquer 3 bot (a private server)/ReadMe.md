@@ -51,5 +51,5 @@ The injected code is a simple "fopen", "fprintf" and "fclose" as you can check i
 ### Observations
 Plotting the data we see some kind of uniformity (although, I imagine it would be normal).
 <p align=center>
-[Imgur](https://i.imgur.com/97aCAyv.png)
+![Imgur](https://i.imgur.com/97aCAyv.png)
 </p>
