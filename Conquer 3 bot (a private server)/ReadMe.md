@@ -49,7 +49,7 @@ I wanted to know how the damage written on the status is related to the damage s
 The injected code is a simple "fopen", "fprintf" and "fclose" as you can check it. The collected data can be found in this folder as well, they are named `38-72.txt` and `179-492.txt`. The names indicate the upper attack bound and the lower attack bound. The data in the files are numbers separated by one "new line" each, and there is an additional "new line" at the end of the files.
 
 ### Observations
-First some statistics.
+First some statistics.  
 `38-72.txt`  
 count 	1223.000000  
 mean 	64.022077  
@@ -81,7 +81,7 @@ Plotting the data we see some kind of uniformity (although, I imagined it would 
 Moreover, the number of unique values in the `38-72.txt` is `35` which is `72-38+1` (the number of integers in the interval [38,72]). Similarly for `179-492.txt`. Hence we directly have a suggestive candidate to test against which is
 
 <p align="center">
-<img src="https://latex.codecogs.com/gif.latex?\dpi{150}&space;\large&space;\left&space;\lfloor&space;\alpha&space;\textup{U}_{[\textup{UA},\textup{LA}]}&space;\right&space;\rfloor&space;&plus;&space;b" title="\large \left \lfloor \alpha \textup{U}_{[\textup{LA},\textup{UA}]} \right \rfloor + b" /></br>
+<img src="https://latex.codecogs.com/svg.latex?\dpi{150}&space;\large&space;\left&space;\lfloor&space;\alpha&space;\textup{U}_{[\textup{UA},\textup{LA}]}&space;\right&space;\rfloor&space;&plus;&space;b" title="\large \left \lfloor \alpha \textup{U}_{[\textup{LA},\textup{UA}]} \right \rfloor + b" /></br>
  </p>
  where <img src="https://latex.codecogs.com/gif.latex?\dpi{150}&space;\large&space;\left&space;\lfloor&space;x&space;\right&space;\rfloor" title="\large \left \lfloor x \right \rfloor" /> is the integer part (the largest integer less than x), b is an integer, LA is the lower attack and UA is upper attack. U is the uniform random variables whose range is the integers in the interval [LA,UA]. Using the usual simple inequalities 
  aaaa  ![](https://latex.codecogs.com/svg.latex?u%3D%5C%7B%28x_1%2Cy_1%29%2C%28x_2%2Cy_2%29%2C...%2C%28x_n%2Cy_n%29%5C%7D).
