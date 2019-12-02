@@ -146,6 +146,7 @@ The output is
 (statistic=308.6167824692678, pvalue=0.5593543532473144)
 ```
 
-Both p-values are greater than the typical `0.05` value (our model is good enough, in fact maybe Excellent).
+Both p-values are greater than the typical `0.05` value (our model is good enough, in fact maybe Excellent).  
+Something to keep in mind, these data were collected from a Ninja. However, from our experience now, the problem is likely find an appropriate alpha.
 
 ... つづく
