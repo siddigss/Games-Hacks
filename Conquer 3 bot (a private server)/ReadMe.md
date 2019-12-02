@@ -81,12 +81,15 @@ Plotting the data we see some kind of uniformity (although, I imagined it would 
 Moreover, the number of unique values in the `38-72.txt` is `35` which is `72-38+1` (the number of integers in the interval [38,72]). Similarly for `179-492.txt`. Hence we directly have a suggestive candidate to test against which is
 
 <p align="center">
-<img src="https://latex.codecogs.com/svg.latex?\dpi{150}&space;\large&space;\left&space;\lfloor&space;\alpha&space;\textup{U}_{[\textup{UA},\textup{LA}]}&space;\right&space;\rfloor&space;&plus;&space;b" title="\large \left \lfloor \alpha \textup{U}_{[\textup{LA},\textup{UA}]} \right \rfloor + b" /></br>
+<img src="https://latex.codecogs.com/svg.latex?\dpi{150}&space;\large&space;\left&space;\lfloor&space;\alpha&space;\textup{U}_{[\textup{LA},\textup{UA}]}&space;\right&space;\rfloor&space;&plus;&space;b" title="\large \left \lfloor \alpha \textup{U}_{[\textup{LA},\textup{UA}]} \right \rfloor + b" /></br>
  </p>
-<p> where <img src="https://latex.codecogs.com/svg.latex?\dpi{150}&space;\large&space;\left&space;\lfloor&space;x&space;\right&space;\rfloor" title="\large \left \lfloor x \right \rfloor" /> is the integer part (the largest integer less than x), b is an integer, LA is the lower attack and UA is upper attack. U is the uniform random variables whose range is the integers in the interval [LA,UA]. Using the usual simple inequalities <img src="https://latex.codecogs.com/svg.latex?%5Cdpi%7B120%7D%20x-1%3C%5Cleft%20%5Clfloor%20x%20%5Cright%20%5Crfloor%5Cleq%20x"> we find </p>
+<p> where <img src="https://latex.codecogs.com/svg.latex?\dpi{150}&space;\large&space;\left&space;\lfloor&space;x&space;\right&space;\rfloor" title="\large \left \lfloor x \right \rfloor" /> is the integer part (the largest integer less than x), b is an integer, LA is the lower attack and UA is upper attack. U is the uniform random variables whose range is the integers in the interval [LA,UA]. Now, the range (max-min) of the collected data should be equal to taht of out proposed model. Using the usual simple inequalities <img src="https://latex.codecogs.com/svg.latex?%5Cdpi%7B120%7D%20x-1%3C%5Cleft%20%5Clfloor%20x%20%5Cright%20%5Crfloor%5Cleq%20x"> on the second file we find </p>
  
 <p align="center">
  <img src="https://latex.codecogs.com/svg.latex?\dpi{120}&space;578&space;-&space;210&space;=&space;\left&space;\lfloor&space;492\alpha&space;\right&space;\rfloor&space;-&space;\left&space;\lfloor&space;179\alpha&space;\right&space;\rfloor&space;\\\\&space;\Rightarrow&space;1.179\approx&space;\frac{369}{313}\geq\alpha\geq\frac{367}{313}\approx&space;1.1725" title="578 - 210 = \left \lfloor 492\alpha \right \rfloor - \left \lfloor 179\alpha \right \rfloor \\\\ \Rightarrow 1.179\approx \frac{369}{313}\geq\alpha\geq\frac{367}{313}\approx 1.1725" /></br>
  </p>
-from which we see 
+Applying this bound on the first file we see
+
+<img src="https://latex.codecogs.com/svg.latex?\dpi{120}&space;0&space;=&space;44&space;-&space;\left&space;\lfloor&space;38\times&space;\frac{369}{313}&space;\right&space;\rfloor&space;\leq&space;b&space;\leq&space;44&space;-&space;\left&space;\lfloor&space;38\times&space;\frac{367}{313}&space;\right&space;\rfloor&space;=&space;0" title="0 = 44 - \left \lfloor 38\times \frac{369}{313} \right \rfloor \leq b \leq 44 - \left \lfloor 38\times \frac{367}{313} \right \rfloor = 0" />
+That is b=0.
 
